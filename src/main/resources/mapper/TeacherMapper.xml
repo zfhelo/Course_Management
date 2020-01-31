@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gdpi.course.dao.TeacherDao">
+    <resultMap id="teaWithCourse" type="teacher">
+        <id property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="time" column="time"/>
+        <result property="photo" column="photo"/>
+        <result property="phone" column="phone"/>
+        <result property="username" column="username"/>
+        <collection property="courses" ofType="course" column="id"
+                    select="org.gdpi.course.dao.CourseDao.findByTId"/>
+    </resultMap>
+<!--    通过账号查找教师-->
+    <select id="findByUsername" parameterType="String" resultMap="teaWithCourse">
+        SELECT * FROM teacher WHERE username = #{username}
+    </select>
+<!--    创建教师账号-->
+    <insert id="saveTeacher" parameterType="teacher" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO teacher(nickname, username, password, photo, phone) VALUES(#{nickname}, #{username}, #{password}, #{photo}, #{phone});
+    </insert>
+<!--    通过id查找教师-->
+    <select id="findById" parameterType="int" resultType="teacher">
+        SELECT * FROM teacher WHERE id = #{id};
+    </select>
+
+    <delete id="removeCourse">
+        DELETE FROM course WHERE id = #{cid} AND tid = #{tid}
+    </delete>
+</mapper>

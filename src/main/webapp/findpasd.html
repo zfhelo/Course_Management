@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>找回密码</title>
+
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/icheck-bootstrap.min.css">
+		<link href="css/login.css" rel="stylesheet">
+
+	</head>
+	<body class="text-center">
+	<div class="container w-auto">
+		<img class="mb-4" src="images/web/学习中心.svg" alt="" width="72" height="72">
+		<h1 class="h3 mb-3 font-weight-normal">Nothing is impossible!</h1>
+		<form class="form-signin">
+			<!--按钮部分-->
+			<div class="form-group form-inline">
+				<div class="radio icheck-primary">
+					<input type="radio" id="student" name="identity" value="student" checked/>
+					<label for="student">学生</label>
+				</div>
+				<div class="radio icheck-primary marginLeft">
+					<input type="radio" id="teacher" name="identity" value="teacher"/>
+					<label for="teacher">教师</label>
+				</div>
+			</div>
+
+
+
+			<!--账号-->
+			<div class="form-group">
+				<label for="inputUsername" class="sr-only">账号</label>
+				<input type="text" id="inputUsername" class="form-control" placeholder="账号">
+				<small class="text-danger float-left">&nbsp;</small>
+			</div>
+			<!--密码-->
+			<div class="form-group">
+				<label for="inputPassword" class="sr-only">密码</label>
+				<input type="password" id="inputPassword" class="form-control" placeholder="密码">
+				<small class="text-danger float-left">&nbsp;密码错误</small><br/>
+			</div>
+
+			<!--手机号-->
+			<div class="form-group form-inline">
+				<label for="a" class="sr-only">验证码</label>
+				<input type="text" class="form-control" id="a" placeholder="手机号">
+				<button type="button" class="btn btn-info" style="height: 2.8rem;margin-left: 20px" disabled>验证码</button>
+			</div>
+			<small class="text-danger float-left">&nbsp;验证码错误</small><br/>
+
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit">重置密码</button>
+		</form>
+		<p class="mt-5 mb-3 text-muted">2020</p>
+	</div>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gdpi.course.dao.StudentDao">
+    <resultMap id="stuWithCourse" type="student">
+        <id property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="time" column="time"/>
+        <result property="photo" column="photo"/>
+        <result property="phone" column="phone"/>
+        <result property="username" column="username"/>
+        <collection property="courses" ofType="course" column="id"
+                    select="org.gdpi.course.dao.CourseDao.findBySId"/>
+    </resultMap>
+<!--    通过账号查找学生-->
+    <select id="findByUsername" parameterType="String" resultMap="stuWithCourse">
+        SELECT * FROM student WHERE username = #{username}
+    </select>
+<!--    创建学生账号-->
+    <insert id="saveStudent" parameterType="student" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO student(nickname, username, password, photo, phone) VALUES(#{nickname}, #{username}, #{password}, #{photo}, #{phone});
+    </insert>
+
+    <delete id="removeCourse">
+        DELETE FROM choise_course WHERE cid = #{cid} AND sid = #{sid}
+    </delete>
+
+</mapper>

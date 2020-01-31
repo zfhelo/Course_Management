@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <context:component-scan base-package="org.gdpi.course.controller"/>
+<!--视图控制器-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+<!--    权限管理-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/teacher/login"/>
+            <mvc:exclude-mapping path="/teacher/findByUsername"/>
+            <mvc:exclude-mapping path="/teacher/checkCode"/>
+            <mvc:exclude-mapping path="/teacher/saveUser"/>
+            <mvc:exclude-mapping path="/student/login"/>
+            <mvc:exclude-mapping path="/student/findByUsername"/>
+            <mvc:exclude-mapping path="/student/checkCode"/>
+            <mvc:exclude-mapping path="/student/saveUser"/>
+
+            <mvc:exclude-mapping path="/index.html"/>
+            <mvc:exclude-mapping path="/login.html"/>
+            <mvc:exclude-mapping path="/register.html"/>
+            <bean class="org.gdpi.course.utils.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+<!--过滤静态资源请求-->
+    <mvc:default-servlet-handler/>
+<!--    开启mvc注解支持-->
+    <mvc:annotation-driven/>
+
+</beans>

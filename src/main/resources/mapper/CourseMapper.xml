@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gdpi.course.dao.CourseDao">
+
+    <resultMap id="courseWithTeacher" type="course">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="number" column="number"/>
+        <result property="tid" column="tid"/>
+        <result property="image" column="image"/>
+        <result property="time" column="time"/>
+        <association property="teacher" column="tid" javaType="teacher"
+                     select="org.gdpi.course.dao.TeacherDao.findById"/>
+    </resultMap>
+
+<!--    通过学生号查找他的课程-->
+    <select id="findBySId" resultMap="courseWithTeacher" parameterType="int">
+        SELECT c.* FROM course c JOIN choise_course cc ON cc.sid = #{sid} AND cc.cid = c.id;
+    </select>
+
+<!--    通过教师号查找课程-->
+    <select id="findByTId" resultMap="courseWithTeacher" parameterType="int">
+        SELECT * FROM course c WHERE tid = #{id};
+    </select>
+
+<!--    创建课程-->
+    <insert id="safeCourse" parameterType="course" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO course(tid, `name`, `number`, image) VALUES(#{tid}, #{name}, #{number}, #{image})
+    </insert>
+
+<!--    通过课程号查找-->
+    <select id="findByNumber" parameterType="string" resultMap="courseWithTeacher">
+        SELECT * FROM course where `number` = #{number}
+    </select>
+
+<!--    通过id查找选课学生-->
+    <select id="findStudentById" parameterType="int" resultType="student">
+        SELECT s.* FROM choise_course c JOIN student s ON #{id} = c.`cid` AND c.`sid` = s.`id`
+    </select>
+
+<!--    通过课程名模糊查询-->
+    <select id="findByNameLike" parameterType="string" resultMap="courseWithTeacher">
+        SELECT * FROM course WHERE `name` LIKE #{name};
+    </select>
+
+<!--    通过id查找课程-->
+    <select id="findById" parameterType="int" resultMap="courseWithTeacher">
+        SELECT * FROM course WHERE id  = #{id}
+    </select>
+
+<!--    加入课程-->
+    <insert id="joinCourse">
+        INSERT INTO choise_course(sid, cid) values(#{sid}, #{cid})
+    </insert>
+
+<!--    移除学员-->
+    <delete id="removeMember">
+        DELETE FROM choise_course WHERE cid = #{cid} AND sid = #{sid};
+    </delete>
+</mapper>

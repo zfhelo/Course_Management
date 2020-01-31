@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>login</title>
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/icheck-bootstrap.min.css">
+		<link href="css/login.css" rel="stylesheet">
+	</head>
+	<body class="text-center">
+		<div class="container w-auto">
+			<img class="mb-4" src="images/web/学习中心.svg" alt="" width="72" height="72">
+			<h1 class="h3 mb-3 font-weight-normal">Nothing is impossible!</h1>
+			<form class="form-signin" action="#" method="post">
+				<!--按钮部分-->
+				<div class="form-group form-inline">
+					<div class="radio icheck-primary">
+						<input type="radio" id="student" name="identity" value="student" checked/>
+						<label for="student">学生</label>
+					</div>
+					<div class="radio icheck-primary marginLeft">
+						<input type="radio" id="teacher" name="identity" value="teacher"/>
+						<label for="teacher">教师</label>
+					</div>
+				</div>
+
+				<!--账号-->
+				<div class="form-group">
+					<label for="username" class="sr-only">账号</label>
+					<input type="text" id="username" class="form-control" placeholder="账号" name="username">
+				</div>
+				<!--密码-->
+				<div class="form-group">
+					<label for="password" class="sr-only">密码</label>
+					<input type="password" id="password" class="form-control" placeholder="密码" name="password">
+				</div>
+
+				<!--验证码-->
+				<div class="form-group form-inline">
+					<label for="checkcode" class="sr-only">验证码</label>
+					<input type="text" class="form-control w-70" id="checkcode" placeholder="验证码">
+					<img class="checkcode float-right" alt="点击刷新验证码" src="student/checkCode" onclick="refreshCode()" id="code">
+				</div>
+
+
+
+				<a class="float-right" href="register.html" style="text-decoration:none">
+					<small class="text-muted">注册账号</small>
+				</a>
+<!--				<a class="float-right" href="findpasd.html" style="text-decoration:none">-->
+<!--					<small class="text-muted">忘记密码&nbsp;&nbsp;</small>-->
+<!--				</a>-->
+
+				<button class="btn btn-lg btn-primary btn-block" type="button" id="btn_login">登录</button>
+				<small class="text-danger float-left" id="msg"></small>
+				<p class="mt-5 mb-3 text-muted">2020</p>
+			</form>
+		</div>
+	</body>
+	<script src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+		// 刷新验证码
+		function refreshCode() {
+			var img = document.getElementById("code");
+			img.onclick = function() {
+				img.src="student/checkCode?"+new Date().getTime();
+			}
+		}
+		// 获取身份
+		var getIdentity = function() {
+			var identity = "teacher";
+			if ($("#student").is(":checked")) {
+				identity = "student";
+			}
+			return identity;
+		};
+		$(function () {
+			// 点击事件
+			$("#btn_login").click(function () {
+				$.ajax({
+					url:getIdentity()+"/login",
+					type:"POST",
+					data:{
+						"username":$("#username").val(),
+						"password":$("#password").val(),
+						"code":$("#checkcode").val()
+					},
+					dataType:"json",
+					success:function (data) {
+						// 成功跳转首页
+						if (data.code === 200) {
+							location.href = getIdentity() + "/index";
+						} else {
+							$("#msg").text(data.msg);
+						}
+					}
+				});
+			});
+		});
+	</script>
+</html>

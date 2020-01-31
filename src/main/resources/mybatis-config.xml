@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 启用延迟加载特性，不配置默认关闭该特性-->
+        <setting name="lazyLoadingEnabled" value="true"></setting>
+        <!-- 按需加载: false:使用关联属性，及时加载;    true,加载对象，则加载所有属性， -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!--日志-->
+        <setting name="logImpl" value="LOG4J"/>
+<!--        开启二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
+        
+    </settings>
+
+    <typeAliases>
+<!--    设置别名-->
+        <package name="org.gdpi.course.pojo"/>
+    </typeAliases>
+</configuration>
