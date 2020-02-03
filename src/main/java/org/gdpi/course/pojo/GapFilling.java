@@ -5,34 +5,25 @@ import java.util.Date;
 /**
  * 填空题实体类
  */
-public class GapFilling {
-    private Integer id;
+public class GapFilling extends Question{
     // 课程id
     private Integer cid;
     private String content;
     private String answer;
-    // 分值
-    private Integer grade;
+
+
     private Date time;
 
     @Override
     public String toString() {
         return "GapFilling{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", cid=" + cid +
                 ", content='" + content + '\'' +
                 ", answer='" + answer + '\'' +
-                ", grade=" + grade +
+                ", grade=" + getGrade() +
                 ", time=" + time +
                 '}';
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getCid() {
@@ -57,14 +48,6 @@ public class GapFilling {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
     }
 
     public Date getTime() {

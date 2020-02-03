@@ -5,4 +5,8 @@
         INSERT INTO `essay_question`(cid, content, grade)
         VALUES(#{cid}, #{content}, #{grade})
     </insert>
+
+    <select id="findByGradeLessThan" parameterType="int" resultType="essayQuestion">
+        SELECT * FROM essay_question WHERE grade &lt;= #{grade} AND cid = #{cid}
+    </select>
 </mapper>

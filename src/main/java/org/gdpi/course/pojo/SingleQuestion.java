@@ -5,8 +5,7 @@ import java.util.Date;
 /**
  * 单选题实体类
  */
-public class SingleQuestion {
-    private Integer id;
+public class SingleQuestion extends Question {
     // 课程id
     private Integer cid;
     private String content;
@@ -16,16 +15,7 @@ public class SingleQuestion {
     private String choise4;
     // 分值
     private String answer;
-    private Integer grade;
     private Date time;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getCid() {
         return cid;
@@ -83,14 +73,6 @@ public class SingleQuestion {
         this.answer = answer;
     }
 
-    public Integer getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
-
     public Date getTime() {
         return time;
     }
@@ -102,7 +84,7 @@ public class SingleQuestion {
     @Override
     public String toString() {
         return "SingleQuestion{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", cid=" + cid +
                 ", content='" + content + '\'' +
                 ", choise1='" + choise1 + '\'' +
@@ -110,7 +92,7 @@ public class SingleQuestion {
                 ", choise3='" + choise3 + '\'' +
                 ", choise4='" + choise4 + '\'' +
                 ", answer='" + answer + '\'' +
-                ", grade=" + grade +
+                ", grade=" + getGrade() +
                 ", time=" + time +
                 '}';
     }

@@ -5,4 +5,8 @@
         INSERT INTO `gap_filling`(cid, content, answer, grade)
         VALUES(#{cid}, #{content}, #{answer}, #{grade})
     </insert>
+
+    <select id="findByGradeLessThan" parameterType="int" resultType="gapFilling">
+        SELECT * FROM gap_filling WHERE grade &lt;= #{grade} AND cid = #{cid}
+    </select>
 </mapper>

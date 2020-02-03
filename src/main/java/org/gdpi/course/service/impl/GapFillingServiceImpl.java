@@ -6,6 +6,8 @@ import org.gdpi.course.service.GapFillingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("gapFillingService")
 public class GapFillingServiceImpl implements GapFillingService {
 
@@ -19,5 +21,10 @@ public class GapFillingServiceImpl implements GapFillingService {
     @Override
     public void saveQuestion(GapFilling gapFilling) {
         gapFillingDao.saveQuestion(gapFilling);
+    }
+
+    @Override
+    public List<GapFilling> findByGradeLessThan(Integer grade, Integer cid) {
+        return gapFillingDao.findByGradeLessThan(grade, cid);
     }
 }

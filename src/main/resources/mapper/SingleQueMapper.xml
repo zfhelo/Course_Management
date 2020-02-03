@@ -5,4 +5,8 @@
         INSERT INTO `single_question`(cid, content, choise_1, choise_2, choise_3, choise_4, answer, grade)
         VALUES(#{cid}, #{content}, #{choise1}, #{choise2}, #{choise3}, #{choise4}, #{answer}, #{grade})
     </insert>
+
+    <select id="findByGradeLessThan" parameterType="int" resultType="singleQuestion">
+        SELECT * FROM single_question WHERE grade &lt;= #{grade} AND cid = #{cid}
+    </select>
 </mapper>

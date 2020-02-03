@@ -17,7 +17,8 @@
                             <form>
                                 <div class="form-group form-inline">
                                     <label for="single_num" style="margin-right: 20px">标&nbsp;&nbsp;&nbsp;&nbsp;题</label>
-                                    <input class="form-control form-control-sm w-25" id="title" style="margin-right: 20px" type="text">
+                                    <input class="form-control form-control-sm w-25" id="title" style="margin-right: 20px" type="text" placeholder="标题">
+                                    <small id="generate_msg" style="color: green"></small>
                                 </div>
                                 <div class="form-group form-inline">
                                     <label for="single_num" style="margin-right: 20px">单选题</label>
@@ -33,9 +34,8 @@
                                     <label for="essay_num" style="margin-right: 20px">解答题</label>
                                     <input id="essay_num" class="form-control form-control-sm w-25" style="margin-right: 20px" type="text" placeholder="解答题题数量">
                                     <input id="grade_essay" class="form-control form-control-sm w-25" type="text" placeholder="总分值">
-                                    <button class="btn btn-primary" style="margin-left: 20px" onclick="generatePaper()">生成试卷</button>
+                                    <button class="btn btn-primary" style="margin-left: 20px" onclick="generatePaper()" type="button">生成试卷</button>
                                 </div>
-                                <small class="form-text text-muted">不包含请填0</small>
 
                             </form>
                         </div>
@@ -70,7 +70,7 @@
                             <form>
                                 <!--题目筛选-->
                                 <div class="form-group form-inline">
-                                    <input class="form-control w-10" id="single_grade" placeholder="分值"><small id="single_msg"></small>
+                                    <input class="form-control w-10" id="single_grade" placeholder="分值(整数)"><small id="single_msg"></small>
                                 </div>
                                 <div class="mb-3">
                                     <textarea class="form-control" id="single_content" placeholder="题干"></textarea>
@@ -105,7 +105,7 @@
                             <form>
                                 <!--题目筛选-->
                                 <div class="form-group form-inline">
-                                    <input class="form-control w-10" id="gap_grade" placeholder="分值"> <small id="gap_msg"></small>
+                                    <input class="form-control w-10" id="gap_grade" placeholder="分值(整数)"> <small id="gap_msg"></small>
                                 </div>
                                 <!--添加-->
 
@@ -138,7 +138,7 @@
                             <form>
                                 <!--题目筛选-->
                                 <div class="form-group form-inline">
-                                    <input class="form-control w-10" id="essay_grade" placeholder="分值"><small id="essay_msg"></small>
+                                    <input class="form-control w-10" id="essay_grade" placeholder="分值(整数)"><small id="essay_msg"></small>
                                 </div>
                                 <!--添加-->
 
@@ -169,9 +169,29 @@
 
     let essay_num = $("#essay_num");
     let grade_essay = $("#grade_essay");
+    let generate_mag = $("#generate_msg");
 
     let generatePaper = function() {
-
+        if (!confirm("确认创建")) {
+            return;
+        }
+        $.ajax({
+            url:"${pageContext.request.contextPath}/generatePaper",
+            type:"POST",
+            dataType:"json",
+            data:{
+                "title":title.val(),
+                "singleNum":single_num.val(),
+                "singleGrade":grade_single.val(),
+                "gapNum":gap_num.val(),
+                "gapGrade":grade_gap.val(),
+                "essayNum":essay_num.val(),
+                "essayGrade":grade_essay.val()
+            },
+            success:function (data) {
+                generate_mag.text(data.msg);
+            }
+        });
     };
 
 

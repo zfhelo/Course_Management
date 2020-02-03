@@ -29,7 +29,6 @@ public class GapFillingController {
     public ResponseMessage add(GapFilling gapFilling,
                                @SessionAttribute("CURRENT_COURSE") Integer id) {
         gapFilling.setCid(id);
-
         try {
             gapFillingService.saveQuestion(gapFilling);
         } catch (ExceptionMessage exceptionMessage) {

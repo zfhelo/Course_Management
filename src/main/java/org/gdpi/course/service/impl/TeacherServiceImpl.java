@@ -30,7 +30,6 @@ public class TeacherServiceImpl implements TeacherService {
         if (teacherDao.findByUsername(teacher.getUsername()) != null) {
             throw new ExceptionMessage("账号已被注册");
         }
-
         // 表单校验
         String msg = fromCheck(teacher);
         if (msg != null) {
