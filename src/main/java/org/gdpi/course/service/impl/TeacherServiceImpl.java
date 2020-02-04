@@ -1,8 +1,10 @@
 package org.gdpi.course.service.impl;
 
 import org.gdpi.course.dao.CourseDao;
+import org.gdpi.course.dao.ExamDao;
 import org.gdpi.course.dao.TeacherDao;
 import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.ExamPaperModel;
 import org.gdpi.course.pojo.Student;
 import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.service.TeacherService;
@@ -22,7 +24,29 @@ public class TeacherServiceImpl implements TeacherService {
     private TeacherDao teacherDao;
     @Autowired
     private CourseDao courseDao;
+    @Autowired
+    private ExamDao examDao;
 
+    /**
+     * 通过课程号查找该课程所有试卷
+     * @param cid
+     * @return
+     */
+    @Override
+    public List<ExamPaperModel> findPaperModelByCId(Integer cid) {
+        List<ExamPaperModel> models = examDao.findByCId(cid);
+        for (ExamPaperModel model:models) {
+            // 查找试卷人数;
+            Integer person = examDao.findByMIdCount(model.getId());
+            model.setMember(person);
+
+            // 查找提交的人数
+            Integer commitNum = examDao.findCommitNum(model.getId());
+            model.setCommit(commitNum);
+        }
+
+        return models;
+    }
 
     @Override
     public Teacher saveTeacher(Teacher teacher) throws ExceptionMessage {
@@ -108,5 +132,39 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Course> removeCourse(Integer cid, Integer tid) {
         teacherDao.removeCourse(cid, tid);
         return courseDao.findByTId(tid);
+    }
+
+    /**
+     * 删除模板试卷
+     * @param id 试卷id
+     * @param cid 课程id
+     * @throws ExceptionMessage
+     */
+    @Override
+    public void deletePaper(Integer id, Integer cid) throws ExceptionMessage {
+        examDao.deleteModelPaper(id, cid);
+    }
+
+    @Override
+    public void updateEnable(Integer id, Integer enable) throws ExceptionMessage {
+        if ( !(enable == 0 || enable ==1) ) {
+            throw new ExceptionMessage("错误");
+        }
+        examDao.updateEnableById(id, enable);
+    }
+
+    /**
+     * 切换hide状态
+     * @param id
+     * @param hide
+     * @throws ExceptionMessage
+     */
+    public void updateHide(Integer id, Integer hide) throws ExceptionMessage {
+        if ( !(hide == 0 || hide ==1) ) {
+            throw new ExceptionMessage("错误");
+        }
+        // 更新
+        examDao.updateHideById(id, hide);
+
     }
 }

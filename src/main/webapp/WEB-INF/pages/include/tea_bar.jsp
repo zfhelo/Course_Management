@@ -18,6 +18,9 @@
             <a class="nav-link" href="teacher/exam" id="exam">题库</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="teacher/paper" id="paper">试卷管理</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#" id="">讨论</a>
         </li>
     </ul>

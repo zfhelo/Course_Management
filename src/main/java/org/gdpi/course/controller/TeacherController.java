@@ -1,6 +1,7 @@
 package org.gdpi.course.controller;
 
 import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.ExamPaperModel;
 import org.gdpi.course.pojo.Student;
 import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.service.TeacherService;
@@ -168,9 +169,89 @@ public class TeacherController {
         session.setAttribute("MEMBER", students);
         return ResponseMessage.success();
     }
+
+    /**
+     * 进入试题管理页面
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/exam")
     public String exam(@SessionAttribute("CURRENT_COURSE") Integer id, ModelMap model) {
         model.addAttribute("BAR_INDEX","exam");
         return "teacher/exam";
+    }
+
+    /**
+     * 进入试题页面
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("paper")
+    public String paper(@SessionAttribute("CURRENT_COURSE") Integer id, ModelMap model) {
+        // 设置活动页面
+        model.addAttribute("BAR_INDEX","paper");
+        List<ExamPaperModel> papers = teacherService.findPaperModelByCId(id);
+        model.addAttribute("model_papers", papers);
+        System.out.println(papers);
+        return "teacher/paper";
+    }
+
+    /**
+     * 切换试卷的是是否隐藏
+     * @param id  模板试卷id
+     * @param hide 0 隐藏 1 显示
+     * @return
+     */
+    @PostMapping("/hide")
+    @ResponseBody
+    public ResponseMessage toogelHide(@RequestParam Integer id, @RequestParam Integer hide) {
+        try {
+            teacherService.updateHide(id, hide);
+        } catch (ExceptionMessage exceptionMessage) {
+            ResponseMessage failed = ResponseMessage.failed();
+            failed.setMsg(exceptionMessage.getMsg());
+            return failed;
+        }
+        return ResponseMessage.success();
+    }
+
+    /**
+     * 更改试卷是否可以提交
+     * @param id
+     * @param enable
+     * @return
+     */
+    @PostMapping("/enable")
+    @ResponseBody
+    public ResponseMessage toogleEnable(@RequestParam Integer id, @RequestParam Integer enable) {
+        try {
+            teacherService.updateEnable(id, enable);
+        } catch (ExceptionMessage exceptionMessage) {
+            ResponseMessage failed = ResponseMessage.failed();
+            failed.setMsg(exceptionMessage.getMsg());
+            return failed;
+        }
+        return ResponseMessage.success();
+    }
+
+    /**
+     * 删除模板试卷
+     * @param id 试卷id
+     * @param cid 课程号
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/deletePaper")
+    public ResponseMessage deletePaper(@RequestParam Integer id, @SessionAttribute("CURRENT_COURSE") Integer cid) {
+        try {
+            teacherService.deletePaper(id, cid);
+        } catch (ExceptionMessage exceptionMessage) {
+            ResponseMessage failed = ResponseMessage.failed();
+            failed.setMsg(exceptionMessage.getMsg());
+            return failed;
+        }
+        return ResponseMessage.success();
     }
 }

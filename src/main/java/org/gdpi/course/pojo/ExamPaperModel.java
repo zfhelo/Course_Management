@@ -10,7 +10,29 @@ public class ExamPaperModel {
     private Integer tid;
     private Integer cid;
     private String title;
+    private Integer enable;
+    private Integer hide;
     private Date time;
+    // 提交人数
+    private Integer commit;
+    // 为提交人数
+    private Integer member;
+
+    public Integer getCommit() {
+        return commit;
+    }
+
+    public void setCommit(Integer commit) {
+        this.commit = commit;
+    }
+
+    public Integer getMember() {
+        return member;
+    }
+
+    public void setMember(Integer member) {
+        this.member = member;
+    }
 
     // 选择题 数量 总分
     private Integer singleNum;
@@ -113,6 +135,22 @@ public class ExamPaperModel {
         this.essayGrade = essayGrade;
     }
 
+    public Integer getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Integer enable) {
+        this.enable = enable;
+    }
+
+    public Integer getHide() {
+        return hide;
+    }
+
+    public void setHide(Integer hide) {
+        this.hide = hide;
+    }
+
     @Override
     public String toString() {
         return "ExamPaperModel{" +
@@ -120,6 +158,8 @@ public class ExamPaperModel {
                 ", tid=" + tid +
                 ", cid=" + cid +
                 ", title='" + title + '\'' +
+                ", enable=" + enable +
+                ", hide=" + hide +
                 ", time=" + time +
                 ", singleNum=" + singleNum +
                 ", singleGrade=" + singleGrade +
@@ -129,8 +169,4 @@ public class ExamPaperModel {
                 ", essayGrade=" + essayGrade +
                 '}';
     }
-
-
-
-
 }

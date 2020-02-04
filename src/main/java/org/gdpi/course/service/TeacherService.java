@@ -1,6 +1,7 @@
 package org.gdpi.course.service;
 
 import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.ExamPaperModel;
 import org.gdpi.course.pojo.Student;
 import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.utils.ExceptionMessage;
@@ -60,4 +61,34 @@ public interface TeacherService {
      * @return
      */
     List<Student> removeMember(Integer cid, Integer sid);
+
+    /**
+     * 通过课程号查找该课程所有试卷
+     * @return
+     */
+    List<ExamPaperModel> findPaperModelByCId(Integer cid);
+
+    /**
+     * 切换hide状态
+     * @param id
+     * @param hide
+     * @throws ExceptionMessage
+     */
+    void updateHide(Integer id, Integer hide) throws ExceptionMessage;
+
+    /**
+     * 改变enable字段
+     * @param id
+     * @param enable
+     * @throws ExceptionMessage
+     */
+    void updateEnable(Integer id, Integer enable) throws ExceptionMessage;
+
+    /**
+     * 删除模板试卷
+     * @param id 试卷id
+     * @param cid 课程id
+     * @throws ExceptionMessage
+     */
+    void deletePaper(Integer id, Integer cid) throws ExceptionMessage;
 }

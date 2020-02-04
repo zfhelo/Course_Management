@@ -1,7 +1,6 @@
 package test.org.gdpi.course.dao;
 
 import org.gdpi.course.dao.TeacherDao;
-import org.gdpi.course.pojo.Student;
 import org.gdpi.course.pojo.Teacher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,6 +26,6 @@ public class TeacherDaoTest {
     @Test
     public void test() {
         Teacher teacher = teacherDao.findByUsername("cheng");
-        //
+
     }
 }

@@ -36,4 +36,15 @@ public class ExamDaoTest {
         List<Integer> byMid = examDao.findByMid(2);
         System.out.println(byMid);
     }
+
+    @Test
+    public void testFindByMidCount() {
+        Integer byMIdCount = examDao.findByMIdCount(11);
+        System.out.println(byMIdCount);
+    }
+    @Test
+    public void testFindCommitNum() {
+        Integer commitNum = examDao.findCommitNum(5);
+        System.out.println(commitNum);
+    }
 }

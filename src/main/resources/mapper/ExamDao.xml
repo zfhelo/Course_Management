@@ -12,14 +12,41 @@
     <select id="findByMid" parameterType="int" resultType="int">
         SELECT id FROM exam_paper WHERE mid = #{mid}
     </select>
-
+<!--插入题目到试卷-->
     <insert id="insertSingleQue">
         INSERT INTO exam_que_single(eid, single_id) VALUES(#{paperId}, #{qId})
     </insert>
+
     <insert id="insertGapQue">
         INSERT INTO exam_que_gap(eid, gap_id) VALUES(#{paperId}, #{qId})
     </insert>
+
     <insert id="insertEssayQue">
         INSERT INTO exam_que_essay(eid, essay_id) VALUES(#{paperId}, #{qId})
     </insert>
+
+    <select id="findByCId" parameterType="int" resultType="examPaperModel">
+        SELECT * FROM exam_paper_model WHERE cid = #{cid}
+    </select>
+<!--查找试卷数量-->
+    <select id="findByMIdCount" parameterType="int" resultType="int">
+        SELECT count(*) FROM exam_paper WHERE mid = #{mid}
+    </select>
+
+    <select id="findCommitNum" parameterType="int" resultType="int">
+        SELECT count(*) FROM exam_paper WHERE status = 1 AND mid = #{mid}
+    </select>
+
+    <update id="updateHideById">
+        UPDATE exam_paper_model SET hide = #{hide} WHERE id = #{id}
+    </update>
+
+
+    <update id="updateEnableById">
+        UPDATE exam_paper_model SET enable = #{enable} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteModelPaper">
+        DELETE FROM exam_paper_model WHERE id = #{id} AND cid = #{cid}
+    </delete>
 </mapper>
