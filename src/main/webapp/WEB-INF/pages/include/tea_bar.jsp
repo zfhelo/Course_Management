@@ -12,7 +12,7 @@
             <a class="nav-link" href="teacher/member" id="member">成员</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" id="resources">资源</a>
+            <a class="nav-link" href="teacher/resources" id="resources">资源</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="teacher/exam" id="exam">题库</a>

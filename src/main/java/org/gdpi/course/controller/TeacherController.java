@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -82,7 +83,6 @@ public class TeacherController {
         try {
             teacherService.saveTeacher(teacher);
         } catch (ExceptionMessage exceptionMessage) {
-            System.out.println(exceptionMessage.getMsg());
             ResponseMessage failed = ResponseMessage.failed();
             failed.setMsg(exceptionMessage.getMsg());
             return failed;
@@ -188,13 +188,12 @@ public class TeacherController {
      * @param model
      * @return
      */
-    @GetMapping("paper")
+    @GetMapping("/paper")
     public String paper(@SessionAttribute("CURRENT_COURSE") Integer id, ModelMap model) {
         // 设置活动页面
         model.addAttribute("BAR_INDEX","paper");
         List<ExamPaperModel> papers = teacherService.findPaperModelByCId(id);
         model.addAttribute("model_papers", papers);
-        System.out.println(papers);
         return "teacher/paper";
     }
 
@@ -252,6 +251,27 @@ public class TeacherController {
             failed.setMsg(exceptionMessage.getMsg());
             return failed;
         }
+        return ResponseMessage.success();
+    }
+
+    /**
+     * 进入资源页
+     * @param id 课程id
+     * @return
+     */
+    @GetMapping("/resources")
+    public String enterResources(@SessionAttribute("CURRENT_COURSE") Integer id, ModelMap modelMap) {
+        modelMap.addAttribute("BAR_INDEX", "resources");
+       return "teacher/resources";
+    }
+
+    @RequestMapping("/get")
+    @ResponseBody
+    public ResponseMessage get(MultipartFile file) {
+        System.out.println("收到文件");
+        String originalFilename = file.getOriginalFilename();
+        System.out.println(originalFilename);
+
         return ResponseMessage.success();
     }
 }
