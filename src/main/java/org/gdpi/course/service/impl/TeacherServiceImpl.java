@@ -157,7 +157,7 @@ public class TeacherServiceImpl implements TeacherService {
         // 保存
         file.transferTo(new File(parent, filename));
         teacherResources.setPath("WEB-INF/files/" + teacherResources.getTid() + "/" + teacherResources.getCid()+"/"+filename);
-        teacherResources.setSize((int) Math.ceil(file.getSize() / 1024 / 1024));
+        teacherResources.setSize((int)file.getSize() / 1024);
 
         // 保存数据到数据库
         resourcesDao.saveTeacherFile(teacherResources);
