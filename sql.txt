@@ -140,3 +140,15 @@ CREATE TABLE exam_que_essay(
 	FOREIGN KEY (essay_id) REFERENCES essay_question(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+create table teacher_resources (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    cid INT NOT NULL,
+    tid INT NOT NULL,
+    title VARCHAR(1000) NOT NULL,
+    path VARCHAR(1000) NOT NULL,
+    size INT NOT NULL,
+    `time`  TIMESTAMP DEFAULT NOW(),
+	FOREIGN KEY (tid) REFERENCES teacher(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	FOREIGN KEY (cid) REFERENCES course(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+

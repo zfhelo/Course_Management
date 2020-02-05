@@ -1,9 +1,6 @@
 package org.gdpi.course.controller;
 
-import org.gdpi.course.pojo.Course;
-import org.gdpi.course.pojo.ExamPaperModel;
-import org.gdpi.course.pojo.Student;
-import org.gdpi.course.pojo.Teacher;
+import org.gdpi.course.pojo.*;
 import org.gdpi.course.service.TeacherService;
 import org.gdpi.course.utils.CheckCode;
 import org.gdpi.course.utils.ExceptionMessage;
@@ -265,13 +262,24 @@ public class TeacherController {
        return "teacher/resources";
     }
 
-    @RequestMapping("/get")
+    /**
+     * 上传文件
+     * @param file 文件
+     * @param teacherResources
+     * @param teacher 上传教师
+     * @param id 对应课程
+     * @return
+     */
+    @RequestMapping("/upload")
     @ResponseBody
-    public ResponseMessage get(MultipartFile file) {
-        System.out.println("收到文件");
-        String originalFilename = file.getOriginalFilename();
-        System.out.println(originalFilename);
-
+    public ResponseMessage upload(MultipartFile file,
+                                  TeacherResources teacherResources,
+                                  @SessionAttribute("TEACHER") Teacher teacher,
+                                  @SessionAttribute("CURRENT_COURSE") Integer id,
+                                  HttpSession sessions) throws IOException {
+        teacherResources.setTid(teacher.getId());
+        teacherResources.setCid(id);
+        teacherService.upload(file, teacherResources, sessions);
         return ResponseMessage.success();
     }
 }

@@ -2,18 +2,21 @@ package org.gdpi.course.service.impl;
 
 import org.gdpi.course.dao.CourseDao;
 import org.gdpi.course.dao.ExamDao;
+import org.gdpi.course.dao.ResourcesDao;
 import org.gdpi.course.dao.TeacherDao;
-import org.gdpi.course.pojo.Course;
-import org.gdpi.course.pojo.ExamPaperModel;
-import org.gdpi.course.pojo.Student;
-import org.gdpi.course.pojo.Teacher;
+import org.gdpi.course.pojo.*;
 import org.gdpi.course.service.TeacherService;
 import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.FromCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 教师业务层接口实现类
@@ -26,6 +29,8 @@ public class TeacherServiceImpl implements TeacherService {
     private CourseDao courseDao;
     @Autowired
     private ExamDao examDao;
+    @Autowired
+    private ResourcesDao resourcesDao;
 
     /**
      * 通过课程号查找该课程所有试卷
@@ -132,6 +137,30 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Course> removeCourse(Integer cid, Integer tid) {
         teacherDao.removeCourse(cid, tid);
         return courseDao.findByTId(tid);
+    }
+
+    @Override
+    public void upload(MultipartFile file, TeacherResources teacherResources, HttpSession sessions) throws IOException {
+        // 拿到文件名
+        String filename = file.getOriginalFilename();
+        // 获取一个随机字符串
+        UUID uuid = UUID.randomUUID();
+        String s = uuid.toString().split("-")[0];
+        filename = s + "_"+ filename;
+        // WEB-INF/files/教师id/课程id/
+        String path = sessions.getServletContext().getRealPath("WEB-INF/files/" + teacherResources.getTid() + "/" + teacherResources.getCid());
+        File parent = new File(path);
+        // 不存在
+        if (!parent.exists()) {
+            parent.mkdirs();
+        }
+        // 保存
+        file.transferTo(new File(parent, filename));
+        teacherResources.setPath("WEB-INF/files/" + teacherResources.getTid() + "/" + teacherResources.getCid()+"/"+filename);
+        teacherResources.setSize((int) Math.ceil(file.getSize() / 1024 / 1024));
+
+        // 保存数据到数据库
+        resourcesDao.saveTeacherFile(teacherResources);
     }
 
     /**
