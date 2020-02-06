@@ -1,6 +1,9 @@
 package org.gdpi.course.controller;
 
-import org.gdpi.course.pojo.*;
+import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.ExamPaperModel;
+import org.gdpi.course.pojo.Student;
+import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.service.TeacherService;
 import org.gdpi.course.utils.CheckCode;
 import org.gdpi.course.utils.ExceptionMessage;
@@ -9,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -262,24 +264,4 @@ public class TeacherController {
        return "teacher/resources";
     }
 
-    /**
-     * 上传文件
-     * @param file 文件
-     * @param teacherResources
-     * @param teacher 上传教师
-     * @param id 对应课程
-     * @return
-     */
-    @RequestMapping("/upload")
-    @ResponseBody
-    public ResponseMessage upload(MultipartFile file,
-                                  TeacherResources teacherResources,
-                                  @SessionAttribute("TEACHER") Teacher teacher,
-                                  @SessionAttribute("CURRENT_COURSE") Integer id,
-                                  HttpSession sessions) throws IOException {
-        teacherResources.setTid(teacher.getId());
-        teacherResources.setCid(id);
-        teacherService.upload(file, teacherResources, sessions);
-        return ResponseMessage.success();
-    }
 }

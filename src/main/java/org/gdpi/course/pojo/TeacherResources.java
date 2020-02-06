@@ -10,6 +10,14 @@ public class TeacherResources {
     private String path;
     private Date time;
     private Integer size;
+    // 字符串时间
+    private String localeTime;
+
+    public String getNickname() {
+        return user == null?"":user.getNickname();
+    }
+
+    private String nickname;
 
     private Teacher user;
 
@@ -29,6 +37,10 @@ public class TeacherResources {
 
     public Integer getSize() {
         return size;
+    }
+
+    public String getLocaleTime() {
+        return localeTime;
     }
 
     public void setSize(Integer size) {
@@ -81,6 +93,7 @@ public class TeacherResources {
 
     public void setTime(Date time) {
         this.time = time;
+        this.localeTime = time.toLocaleString();
     }
 
     public Teacher getUser() {

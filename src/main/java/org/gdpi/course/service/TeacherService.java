@@ -1,11 +1,11 @@
 package org.gdpi.course.service;
 
-import org.gdpi.course.pojo.*;
+import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.ExamPaperModel;
+import org.gdpi.course.pojo.Student;
+import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.utils.ExceptionMessage;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -92,11 +92,5 @@ public interface TeacherService {
      */
     void deletePaper(Integer id, Integer cid) throws ExceptionMessage;
 
-    /**
-     * 文件上传
-     * @param file
-     * @param teacherResources
-     * @param sessions
-     */
-    void upload(MultipartFile file, TeacherResources teacherResources, HttpSession sessions) throws IOException;
+
 }

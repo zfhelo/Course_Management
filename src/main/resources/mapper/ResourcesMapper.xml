@@ -5,4 +5,15 @@
         INSERT INTO teacher_resources(cid, tid, title, path, `size`) VALUES(#{cid}, #{tid}, #{title}, #{path}, #{size})
     </insert>
 
+    <select id="findTeacherAll" resultType="teacherResources" parameterType="int">
+        SELECT * FROM teacher_resources WHERE cid = #{cid} ORDER BY `time` DESC
+    </select>
+
+    <delete id="deleteTeaResources">
+        DELETE FROM teacher_resources WHERE id = #{id} AND cid = #{cid}
+    </delete>
+
+    <select id="findTeaById" parameterType="int" resultType="teacherResources">
+        SELECT * FROM teacher_resources WHERE id = #{id}
+    </select>
 </mapper>

@@ -28,6 +28,18 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="plugins">
+<!--            集成pagehelper插件-->
+            <set>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <props>
+                            <prop key="helperDialect">mysql</prop>
+                        </props>
+                    </property>
+                </bean>
+            </set>
+        </property>
     </bean>
 <!--    将mybatis生成的代理接口放入容器-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">

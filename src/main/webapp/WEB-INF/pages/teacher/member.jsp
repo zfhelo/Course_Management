@@ -9,7 +9,7 @@
                         <c:forEach items="${MEMBER}" var="m">
                             <li class="list-group-item" id="${m.id}">
                                 ${m.nickname}
-                                <button type="button" class="btn btn-link float-right" onclick="removeMember(${m.id})">移除</button>
+                                <button type="button" class="btn btn-link float-right" onclick="removeMember(${m.id})" style="padding: 0px">移除</button>
                             </li>
                         </c:forEach>
                     </ul>

@@ -8,6 +8,8 @@
         http://www.springframework.org/schema/mvc
         https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     <context:component-scan base-package="org.gdpi.course.controller"/>
+    <context:property-placeholder location="classpath:ProjectConfig.properties"/>
+
 <!--视图控制器-->
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
@@ -35,7 +37,7 @@
     </mvc:interceptors>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="104857600"/>
+        <property name="maxUploadSize" value="${maxUploadSize}"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
