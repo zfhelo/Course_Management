@@ -88,7 +88,6 @@ public class ResourcesController {
             return resourcesServices.findPage(page, pageSize, cid);
         }
         if ("student".equals(identity)) {
-            // 问题  java.lang.IllegalStateException: 当前响应已经调用了方法getOutputStream()
             return resourcesServices.findPageStu(page, pageSize, cid);
         }
         return new PageInfo();
@@ -122,13 +121,43 @@ public class ResourcesController {
         return ResponseMessage.success();
     }
 
-    @GetMapping("/teacher/download")
+    /**
+     * 学生删除资源
+     * @param id
+     * @param cid
+     * @param session
+     * @param student
+     * @return
+     */
+    @PostMapping("/student/deleteStuResources")
+    @ResponseBody
+    public ResponseMessage deleteResourcesStu(@RequestParam Integer id,
+                                           @SessionAttribute("CURRENT_COURSE") Integer cid,
+                                           HttpSession session,
+                                           @RequestParam Integer sid,
+                                           @SessionAttribute("STUDENT") Student student) {
+        if (!student.getId().equals(sid)) {
+            return ResponseMessage.failed();
+        }
+        resourcesServices.deleteStuResources(id, cid, session);
+        return ResponseMessage.success();
+    }
+
+    @GetMapping("/{identity}/download")
     public void download(@RequestParam Integer id,
                          @SessionAttribute("CURRENT_COURSE") Integer cid,
+                         @PathVariable("identity") String identity,
                          HttpServletResponse response,
                          HttpSession session) throws Exception {
         String ProjectPath = session.getServletContext().getRealPath("/");
-        String path = resourcesServices.downloadTeaResources(id, cid);
+        String path = "";
+        if ("teacher".equals(identity)) {
+            // 下载教师资源
+            path = resourcesServices.downloadTeaResources(id, cid);
+        } else if ("student".equals(identity)) {
+            // 下载学生资源
+            path = resourcesServices.downloadStuResources(id, cid);
+        }
         path = ProjectPath + path;
         File file = new File(path);
         // 文件不存在
@@ -148,5 +177,6 @@ public class ResourcesController {
             count = bfs.read(b);
         }
         bfs.close();
+        outputStream.close();
     }
 }

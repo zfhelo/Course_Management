@@ -101,13 +101,23 @@
     // 更新数据
     let refreshResource = function(data) {
         $content.empty();
+        let node;
         $.each(data, function (index,object) {
-            let node = $('                        <li class="list-group-item" style="margin-bottom: 3px;" id="'+object.id+'">\n' +
-                '                            <span >'+object.title+'</span>\n' +
-                '                            <a class="btn btn-link float-right" style="padding: 0px" href="'+identify+'/download?id='+object.id+'">下载</a>\n' +
-                '                            <button type="button" class="btn btn-link float-right" style="margin-right: 20px; padding: 0px;" onclick="deleteResources('+object.id+')">删除</button>\n' +
-                '                            <small class="float-right" style="margin-right: 20px;">'+object.nickname+'('+object.localeTime+')</small>\n' +
-                '                        </li>');
+            // 判断是否可以删除
+            if (identify === 'teacher' || (object.sid !== ${STUDENT.id})) {
+                node = $('                        <li class="list-group-item" style="margin-bottom: 3px;" id="'+object.id+'">\n' +
+                    '                            <span >'+object.title+'</span>\n' +
+                    '                            <a class="btn btn-link float-right" style="padding: 0px" href="'+identify+'/download?id='+object.id+'">下载</a>\n' +
+                    '                            <small class="float-right" style="margin-right: 20px;">'+object.nickname+'('+object.localeTime+')</small>\n' +
+                    '                        </li>');
+            } else {
+                node = $('                        <li class="list-group-item" style="margin-bottom: 3px;" id="'+object.id+'">\n' +
+                    '                            <span >'+object.title+'</span>\n' +
+                    '                            <a class="btn btn-link float-right" style="padding: 0px" href="'+identify+'/download?id='+object.id+'">下载</a>\n' +
+                    '                            <button type="button" class="btn btn-link float-right" style="margin-right: 20px; padding: 0px;" onclick="deleteResources('+object.id+')">删除</button>\n' +
+                    '                            <small class="float-right" style="margin-right: 20px;">'+object.nickname+'('+object.localeTime+')</small>\n' +
+                    '                        </li>');
+            }
             $content.append(node);
         })
     };
@@ -134,11 +144,12 @@
             return;
         }
         $.ajax({
-            url:"${pageContext.request.contextPath}/"+identify+"/deleteStuResources",
+            url:"${pageContext.request.contextPath}/student/deleteStuResources",
             type: "POST",
             datatype: "json",
             data: {
                "id":id,
+                "sid":${STUDENT.id}
             },
             success:function (data) {
                 if (data.code === 200) {

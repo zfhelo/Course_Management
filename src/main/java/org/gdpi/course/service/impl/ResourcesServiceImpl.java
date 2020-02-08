@@ -90,6 +90,12 @@ public class ResourcesServiceImpl implements ResourcesServices {
     }
 
     @Override
+    public String downloadStuResources(Integer id, Integer cid) {
+        StudentResources stuById = resourcesDao.findStuById(id);
+        return stuById.getPath();
+    }
+
+    @Override
     public void deleteStuResources(Integer id, Integer cid, HttpSession session) {
         StudentResources stuById = resourcesDao.findStuById(id);
         if (stuById == null) {

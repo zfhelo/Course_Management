@@ -52,4 +52,12 @@ public interface ResourcesServices {
      * @return
      */
     String downloadTeaResources(Integer id, Integer cid);
+
+    /**
+     * 下载学生资源
+     * @param id
+     * @param cid
+     * @return
+     */
+    String downloadStuResources(Integer id, Integer cid);
 }

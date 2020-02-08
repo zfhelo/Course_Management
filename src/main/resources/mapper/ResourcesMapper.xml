@@ -9,7 +9,7 @@
         <result property="path" column="path"/>
         <result property="size" column="size"/>
         <result property="time" column="time"/>
-        <association property="user" column="sid" select="org.gdpi.course.dao.StudentDao.findById" javaType="student"/>
+        <result property="nickname" column="nickname"/>
     </resultMap>
     <insert id="saveTeacherFile" parameterType="teacherResources">
         INSERT INTO teacher_resources(cid, tid, title, path, `size`) VALUES(#{cid}, #{tid}, #{title}, #{path}, #{size})
@@ -24,7 +24,7 @@
     </select>
 
     <select id="findStudentAll" resultMap="stuRes" parameterType="int">
-        SELECT * FROM student_resources WHERE cid = #{cid} ORDER BY `time` DESC
+        SELECT res.*, stu.nickname FROM student_resources res, student stu WHERE res.cid = #{cid} AND res.sid = stu.id ORDER BY `time` DESC
     </select>
 
     <delete id="deleteTeaResources">

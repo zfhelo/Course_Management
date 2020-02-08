@@ -14,6 +14,9 @@ public class StudentResources {
     private String localeTime;
 
     public String getNickname() {
+        if (nickname != null) {
+            return nickname;
+        }
         return user == null?"":user.getNickname();
     }
 
