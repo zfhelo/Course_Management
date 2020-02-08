@@ -1,16 +1,14 @@
 package org.gdpi.course.controller;
 
 import org.gdpi.course.pojo.ExamPaperModel;
+import org.gdpi.course.pojo.Student;
 import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.service.ExamService;
 import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -90,6 +88,23 @@ public class ExamController {
 
         ResponseMessage success = ResponseMessage.success();
         success.setMsg("保存成功");
+        return success;
+    }
+
+    @ResponseBody
+    @PostMapping("/commitPaper")
+    public ResponseMessage commitPaper(@RequestParam Integer id,
+                                       @SessionAttribute("STUDENT") Student student) {
+        try {
+            examService.commitPaper(id, student.getId());
+        } catch (ExceptionMessage exceptionMessage) {
+            ResponseMessage failed = ResponseMessage.failed();
+            failed.setMsg(exceptionMessage.getMsg());
+            return failed;
+        }
+        ResponseMessage success = ResponseMessage.success();
+        success.setMsg("提交成功");
+
         return success;
     }
 }

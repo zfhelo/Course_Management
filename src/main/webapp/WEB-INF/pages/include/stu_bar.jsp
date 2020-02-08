@@ -12,6 +12,9 @@
             <a class="nav-link" href="student/member" id="member">成员</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="student/resources" id="resources">资源</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="student/paper" id="paper">试题</a>
         </li>
         <li class="nav-item">

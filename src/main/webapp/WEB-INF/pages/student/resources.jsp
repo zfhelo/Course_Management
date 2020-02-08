@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<%@include file="../include/tea_bar.jsp"%>
+<%@include file="../include/stu_bar.jsp"%>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
 <link href="fileinput/themes/explorer-fas/theme.css" media="all" rel="stylesheet" type="text/css"/>
@@ -134,11 +134,11 @@
             return;
         }
         $.ajax({
-            url:"${pageContext.request.contextPath}/"+identify+"/deleteResources",
+            url:"${pageContext.request.contextPath}/"+identify+"/deleteStuResources",
             type: "POST",
             datatype: "json",
             data: {
-               "id":id
+               "id":id,
             },
             success:function (data) {
                 if (data.code === 200) {
@@ -165,7 +165,7 @@
     $("#input-701").fileinput({
         language: 'zh',
         theme: "fas",
-        uploadUrl: "${pageContext.request.contextPath}/teacher/upload",
+        uploadUrl: "${pageContext.request.contextPath}/student/upload",
         maxFileCount: 1 , // 最大上传数量
         uploadAsync: true, // 异步上传
         hideThumbnailContent: true, // hide image, pdf, text or other content in the thumbnail preview

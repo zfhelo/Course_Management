@@ -35,7 +35,7 @@
     <style type="text/css">
         /* clock */
         .clock{width:360px;height:120px;color:#d96457;font-family:"Lato", sans-serif;}
-        .clock div{background:#ffe8e8;border-radius:6px;width:96px;height:80px;line-height:80px;text-align:center;font-size:60px;margin:0px 5px;}
+        .clock div{border-radius:6px;width:96px;height:80px;line-height:80px;text-align:center;font-size:60px;margin:0px 5px;}
     </style>
 
     <style>
@@ -112,14 +112,14 @@
                                 <textarea id="e_${q.id}">${q.userAnswer}</textarea>
                                 <hr class="line"/>
                         </c:forEach>
-
                     </div>
+
                 </div>
+                <button type="button" class="btn btn-primary float-right w-25" onclick="commit(${paper.id})">提交</button>
             </div>
 
             <!--时间提示-->
             <div class="col-lg-4 float-right">
-<%--                <div style="width: 300px; height: 200px; background-color: pink" class="float-right sticky-top">时间</div>--%>
                 <div class="float-right sticky-top">
                     <div class='clock'>
                         <div class='h shake shake-slow'></div>
@@ -202,6 +202,20 @@
                 }
             })
         };
+
+        let commit = function (id) {
+            $.ajax({
+                url:"${pageContext.request.contextPath}/commitPaper",
+                type: "POST",
+                data: {
+                    "id":id,
+                },
+                dataType: "json",
+                success:function (data) {
+                    $("#msg").text(data.msg)
+                }
+            })
+        }
     </script>
 </body>
 </html>

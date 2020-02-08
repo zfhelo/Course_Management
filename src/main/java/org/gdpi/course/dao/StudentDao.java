@@ -27,4 +27,11 @@ public interface StudentDao {
      * @param sid
      */
     void removeCourse(@Param("cid") Integer cid, @Param("sid") Integer sid);
+
+    /**
+     * 通过id查找学生
+     * @param id
+     * @return
+     */
+    Student findById(Integer id);
 }

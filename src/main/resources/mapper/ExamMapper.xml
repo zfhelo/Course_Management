@@ -132,5 +132,8 @@
         UPDATE exam_que_essay set answer = #{answer} WHERE eid = #{pid} AND essay_id = #{qid}
     </select>
 
+    <update id="updateStatus">
+        UPDATE exam_paper SET status = 1 WHERE id = #{id} AND sid = #{sid}
+    </update>
 
 </mapper>

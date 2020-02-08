@@ -51,6 +51,7 @@ public class StudentController {
         Student user = studentService.login(username, password);
         // 查询到用户
         if (user != null && user.getPassword().equals(password)) {
+            session.removeAttribute("TEACHER");
             // 添加到域对象
             session.setAttribute("STUDENT", user);
             // 删除验证码
@@ -168,5 +169,16 @@ public class StudentController {
                              ModelMap modelMap) {
         modelMap.addAttribute("BAR_INDEX","paper");
         return "student/paper";
+    }
+
+    /**
+     * 进入资源页
+     * @param id 课程id
+     * @return
+     */
+    @GetMapping("/resources")
+    public String enterResources(@SessionAttribute("CURRENT_COURSE") Integer id, ModelMap modelMap) {
+        modelMap.addAttribute("BAR_INDEX", "resources");
+        return "student/resources";
     }
 }

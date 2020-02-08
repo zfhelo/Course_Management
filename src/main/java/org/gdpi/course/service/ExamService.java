@@ -57,4 +57,11 @@ public interface ExamService {
 
     void updateGap(String answer, Integer id, Integer mid, Integer pid) throws ExceptionMessage;
     void updateEssay(String answer, Integer id, Integer mid, Integer pid) throws ExceptionMessage;
+
+    /**
+     * 提交试卷
+     * @param id
+     * @param sid
+     */
+    void commitPaper(Integer id, Integer sid) throws ExceptionMessage;
 }

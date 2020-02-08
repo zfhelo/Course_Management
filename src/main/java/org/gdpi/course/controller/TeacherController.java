@@ -52,6 +52,7 @@ public class TeacherController {
         if (user != null && user.getPassword().equals(password)) {
             // 添加到域对象
             session.setAttribute("TEACHER", user);
+            session.removeAttribute("STUDENT");
             // 删除验证码
             session.removeAttribute("CHECKCODE_SERVER");
             return ResponseMessage.success();

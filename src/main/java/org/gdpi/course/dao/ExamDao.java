@@ -154,4 +154,11 @@ public interface ExamDao {
      * @param qid 题目id
      */
     void updateEssay(@Param("answer") String answer, @Param("pid") Integer pid, @Param("qid") Integer qid);
+
+    /**
+     * 提交试卷
+     * @param id 试卷id
+     * @param sid 学生id
+     */
+    int updateStatus(@Param("id") Integer id, @Param("sid") Integer sid);
 }

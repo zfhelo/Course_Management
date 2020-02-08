@@ -1,6 +1,8 @@
 package org.gdpi.course.controller;
 
 import com.github.pagehelper.PageInfo;
+import org.gdpi.course.pojo.Student;
+import org.gdpi.course.pojo.StudentResources;
 import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.pojo.TeacherResources;
 import org.gdpi.course.service.ResourcesServices;
@@ -34,7 +36,7 @@ public class ResourcesController {
      * @param id 对应课程
      * @return
      */
-    @RequestMapping("teacher/upload")
+    @RequestMapping("/teacher/upload")
     @ResponseBody
     public ResponseMessage upload(MultipartFile file,
                                   TeacherResources teacherResources,
@@ -48,26 +50,75 @@ public class ResourcesController {
     }
 
     /**
+     * 上传文件
+     * @param file 文件
+     * @param studentResources
+     * @param student 上传学生
+     * @param id 对应课程
+     * @return
+     */
+    @RequestMapping("/student/upload")
+    @ResponseBody
+    public ResponseMessage upload(MultipartFile file,
+                                  StudentResources studentResources,
+                                  @SessionAttribute("STUDENT") Student student,
+                                  @SessionAttribute("CURRENT_COURSE") Integer id,
+                                  HttpSession sessions) throws IOException {
+        studentResources.setSid(student.getId());
+        studentResources.setCid(id);
+        resourcesServices.upload(file, studentResources, sessions);
+        return ResponseMessage.success();
+    }
+
+
+    /**
      * 分页查找
      * @param cid
      * @param page
      * @param pageSize
      * @return
      */
-    @PostMapping("teacher/findPage")
+    @PostMapping("/{identity}/findPage")
     @ResponseBody
-    public PageInfo<TeacherResources> findPage(@SessionAttribute("CURRENT_COURSE") Integer cid,
+    public PageInfo findPage(@SessionAttribute("CURRENT_COURSE") Integer cid,
                                                @RequestParam Integer page,
-                                               @Value("${pageSize}") Integer pageSize) {
-        return resourcesServices.findPage(page, pageSize, cid);
+                                               @Value("${pageSize}") Integer pageSize,
+                                               @PathVariable("identity") String identity) {
+        if ("teacher".equals(identity)) {
+            return resourcesServices.findPage(page, pageSize, cid);
+        }
+        if ("student".equals(identity)) {
+            // 问题  java.lang.IllegalStateException: 当前响应已经调用了方法getOutputStream()
+            return resourcesServices.findPageStu(page, pageSize, cid);
+        }
+        return new PageInfo();
     }
 
-    @PostMapping("teacher/deleteResources")
+    /**
+     * 教师删除资源
+     * @param id
+     * @param cid
+     * @param session
+     * @param teacher
+     * @param identity
+     * @return
+     */
+    @PostMapping("/{identity}/deleteResources")
     @ResponseBody
     public ResponseMessage deleteResources(@RequestParam Integer id,
                                            @SessionAttribute("CURRENT_COURSE") Integer cid,
-                                           HttpSession session) {
-        resourcesServices.deleteTeaResources(id, cid, session);
+                                           HttpSession session,
+                                           @SessionAttribute("TEACHER") Teacher teacher,
+                                           @PathVariable("identity") String identity) {
+        if ("teacher".equals(identity)) {
+            resourcesServices.deleteTeaResources(id, cid, session);
+        } else if ("student".equals(identity)) {
+            try {
+                resourcesServices.deleteStuResources(id, cid, session);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return ResponseMessage.success();
     }
 

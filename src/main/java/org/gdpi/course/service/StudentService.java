@@ -51,4 +51,5 @@ public interface StudentService {
      * @return 返回剩余的选课
      */
     List<Course> removeCourse(Integer cid, Integer sid);
+
 }

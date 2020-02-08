@@ -40,6 +40,19 @@ public class ExamServiceImpl implements ExamService {
     }
 
     /**
+     * 提交试卷
+     * @param id
+     * @param sid
+     */
+    @Override
+    public void commitPaper(Integer id, Integer sid) throws ExceptionMessage {
+        int i = examDao.updateStatus(id, sid);
+        if (i == 0) {
+            throw new ExceptionMessage("试卷不存在");
+        }
+    }
+
+    /**
      * 为学生创建试卷
      * @param sid 学生id
      * @param mid 模板试卷id

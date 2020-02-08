@@ -24,4 +24,8 @@
         DELETE FROM choise_course WHERE cid = #{cid} AND sid = #{sid}
     </delete>
 
+    <select id="findById" resultType="student" parameterType="int">
+        SELECT * FROM student WHERE id = #{id}
+    </select>
+
 </mapper>
