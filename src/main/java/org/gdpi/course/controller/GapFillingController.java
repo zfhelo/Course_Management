@@ -33,7 +33,7 @@ public class GapFillingController {
             gapFillingService.saveQuestion(gapFilling);
         } catch (ExceptionMessage exceptionMessage) {
             ResponseMessage failed = ResponseMessage.failed();
-            failed.setMsg("添加失败");
+            failed.setMsg(exceptionMessage.getMsg());
             return failed;
         }
         return ResponseMessage.success();

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.pojo.TeacherResources;
 import org.gdpi.course.service.ResourcesServices;
+import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,17 +75,14 @@ public class ResourcesController {
     public void download(@RequestParam Integer id,
                          @SessionAttribute("CURRENT_COURSE") Integer cid,
                          HttpServletResponse response,
-                         HttpSession session) throws IOException {
+                         HttpSession session) throws Exception {
         String ProjectPath = session.getServletContext().getRealPath("/");
         String path = resourcesServices.downloadTeaResources(id, cid);
         path = ProjectPath + path;
         File file = new File(path);
         // 文件不存在
         if (!file.exists()) {
-            response.setContentType("text/html; charset=UTF-8");//注意text/html，和application/html
-            response.getWriter().print("<html><body><script type='text/javascript'>alert('您要下载的资源已被删除！');</script></body></html>");
-            response.getWriter().close();
-            return;
+            throw new ExceptionMessage("资源已被删除");
         }
         int lastIndexOf = path.lastIndexOf('/');
         String filename = path.substring(lastIndexOf);

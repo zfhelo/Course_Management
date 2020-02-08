@@ -8,6 +8,7 @@ import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/student")
+@SessionAttributes({"BAR_INDEX"})
 public class StudentController {
     @Autowired
     StudentService studentService;
@@ -152,5 +154,19 @@ public class StudentController {
         List<Course> courses = studentService.removeCourse(id, sid);
         student.setCourses(courses);
         return ResponseMessage.success();
+    }
+
+    /**
+     * 进入试卷列表
+     * @param student
+     * @param cid
+     * @return
+     */
+    @GetMapping("/paper")
+    public String enterPaper(@SessionAttribute("STUDENT") Student student,
+                             @SessionAttribute("CURRENT_COURSE") Integer cid,
+                             ModelMap modelMap) {
+        modelMap.addAttribute("BAR_INDEX","paper");
+        return "student/paper";
     }
 }

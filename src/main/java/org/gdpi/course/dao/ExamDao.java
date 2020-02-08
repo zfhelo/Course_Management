@@ -1,7 +1,10 @@
 package org.gdpi.course.dao;
 
 import org.apache.ibatis.annotations.Param;
+import org.gdpi.course.pojo.EssayQuestion;
+import org.gdpi.course.pojo.ExamPaper;
 import org.gdpi.course.pojo.ExamPaperModel;
+import org.gdpi.course.pojo.GapFilling;
 import org.gdpi.course.utils.ExceptionMessage;
 import org.springframework.stereotype.Controller;
 
@@ -92,4 +95,63 @@ public interface ExamDao {
      * @throws ExceptionMessage
      */
     void deleteModelPaper(@Param("id") Integer id , @Param("cid") Integer cid) throws ExceptionMessage;
+
+    /**
+     * 查找试卷
+     * @param cid
+     * @return
+     */
+    List<ExamPaperModel> findByCidForStu(Integer cid);
+
+    /**
+     * 查找试卷
+     * @param mid 模板试卷id
+     * @param sid 学生id
+     * @return
+     */
+    ExamPaper findPaperByMidSid(@Param("mid") Integer mid, @Param("sid") Integer sid);
+
+    /**
+     * 通过试卷id查找该试卷所有选择题
+     * @param id
+     * @return
+     */
+    List<SingleQueDao> findAllSingleByEid(Integer id);
+
+    List<GapFilling> findAllGapByEid(Integer id);
+
+    List<EssayQuestion> findAllEssayByEid(Integer id);
+
+    /**
+     * 通过 enable 和 hide 和 id属性查找
+     * @param enable
+     * @param hide
+     * @return
+     */
+    ExamPaperModel findPaperModelById(@Param("enable") Integer enable,
+                                        @Param("hide") Integer hide,
+                                        @Param("id") Integer id);
+
+    /**
+     * 更新答案
+     * @param answer
+     * @param pid 试卷id
+     * @param qid 题目id
+     */
+    void updateSingle(@Param("answer") String answer, @Param("pid") Integer pid, @Param("qid") Integer qid);
+
+    /**
+     * 更新答案
+     * @param answer
+     * @param pid 试卷id
+     * @param qid 题目id
+     */
+    void updateGap(@Param("answer") String answer, @Param("pid") Integer pid, @Param("qid") Integer qid);
+    /**
+     * 更新答案
+     * @param answer
+     * @param pid 试卷id
+     * @param qid 题目id
+     */
+    void updateEssay(@Param("answer") String answer, @Param("pid") Integer pid, @Param("qid") Integer qid);
 }

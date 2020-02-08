@@ -1,6 +1,7 @@
 package test.org.gdpi.course.dao;
 
 import org.gdpi.course.dao.ExamDao;
+import org.gdpi.course.pojo.ExamPaper;
 import org.gdpi.course.pojo.ExamPaperModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,5 +47,10 @@ public class ExamDaoTest {
     public void testFindCommitNum() {
         Integer commitNum = examDao.findCommitNum(5);
         System.out.println(commitNum);
+    }
+    @Test
+    public void test1() {
+        ExamPaper paperByMidSid = examDao.findPaperByMidSid(17, 1);
+        System.out.println();
     }
 }

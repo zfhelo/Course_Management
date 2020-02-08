@@ -11,6 +11,16 @@ public class EssayQuestion extends Question{
     private Integer cid;
     private String content;
 
+    private String userAnswer;
+
+    public String getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(String userAnswer) {
+        this.userAnswer = userAnswer.trim();
+    }
+
     private Date time;
 
     public Integer getCid() {
@@ -26,7 +36,7 @@ public class EssayQuestion extends Question{
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content.trim();
     }
 
     public Date getTime() {

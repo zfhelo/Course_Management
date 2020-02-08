@@ -17,6 +17,26 @@ public class SingleQuestion extends Question {
     private String answer;
     private Date time;
 
+    private String userAnswer;
+
+    public String getUserAnswer() {
+        return userAnswer;
+    }
+
+    @Override
+    public String toString() {
+        return "SingleQuestion{" +
+                "cid=" + cid +
+                ", content='" + content + '\'' +
+                ", choise1='" + choise1 + '\'' +
+                ", choise2='" + choise2 + '\'' +
+                ", choise3='" + choise3 + '\'' +
+                ", choise4='" + choise4 + '\'' +
+                ", answer='" + answer + '\'' +
+                ", time=" + time +
+                '}';
+    }
+
     public Integer getCid() {
         return cid;
     }
@@ -30,7 +50,7 @@ public class SingleQuestion extends Question {
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content.trim();
     }
 
     public String getChoise1() {
@@ -38,7 +58,7 @@ public class SingleQuestion extends Question {
     }
 
     public void setChoise1(String choise1) {
-        this.choise1 = choise1;
+        this.choise1 = choise1.trim();
     }
 
     public String getChoise2() {
@@ -46,7 +66,7 @@ public class SingleQuestion extends Question {
     }
 
     public void setChoise2(String choise2) {
-        this.choise2 = choise2;
+        this.choise2 = choise2.trim();
     }
 
     public String getChoise3() {
@@ -54,7 +74,7 @@ public class SingleQuestion extends Question {
     }
 
     public void setChoise3(String choise3) {
-        this.choise3 = choise3;
+        this.choise3 = choise3.trim();
     }
 
     public String getChoise4() {
@@ -62,7 +82,7 @@ public class SingleQuestion extends Question {
     }
 
     public void setChoise4(String choise4) {
-        this.choise4 = choise4;
+        this.choise4 = choise4.trim();
     }
 
     public String getAnswer() {
@@ -70,7 +90,7 @@ public class SingleQuestion extends Question {
     }
 
     public void setAnswer(String answer) {
-        this.answer = answer;
+        this.answer = answer.trim();
     }
 
     public Date getTime() {
@@ -81,19 +101,7 @@ public class SingleQuestion extends Question {
         this.time = time;
     }
 
-    @Override
-    public String toString() {
-        return "SingleQuestion{" +
-                "id=" + getId() +
-                ", cid=" + cid +
-                ", content='" + content + '\'' +
-                ", choise1='" + choise1 + '\'' +
-                ", choise2='" + choise2 + '\'' +
-                ", choise3='" + choise3 + '\'' +
-                ", choise4='" + choise4 + '\'' +
-                ", answer='" + answer + '\'' +
-                ", grade=" + getGrade() +
-                ", time=" + time +
-                '}';
+    public void setUserAnswer(String userAnswer) {
+        this.userAnswer = userAnswer.trim();
     }
 }

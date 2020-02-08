@@ -11,6 +11,15 @@ public class GapFilling extends Question{
     private String content;
     private String answer;
 
+    private String userAnswer;
+
+    public String getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(String userAnswer) {
+        this.userAnswer = userAnswer.trim();
+    }
 
     private Date time;
 
@@ -39,7 +48,7 @@ public class GapFilling extends Question{
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.content = content.trim();
     }
 
     public String getAnswer() {
@@ -47,7 +56,7 @@ public class GapFilling extends Question{
     }
 
     public void setAnswer(String answer) {
-        this.answer = answer;
+        this.answer = answer.trim();
     }
 
     public Date getTime() {

@@ -7,7 +7,9 @@ import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -50,7 +52,44 @@ public class ExamController {
             return failed;
         }
 
-
         return ResponseMessage.success();
+    }
+
+    /**
+     * 更新用户答案
+     * @param que 类型
+     * @param id 题目id
+     * @param answer 所选答案
+     * @param pid 试卷id
+     * @param mid 模板试卷id
+     * @return
+     */
+    @PostMapping("/{que}/update")
+    @ResponseBody
+    public ResponseMessage updateAnswer(@PathVariable("que") String que,
+                                        @RequestParam Integer id,
+                                        @RequestParam String answer,
+                                        @RequestParam Integer pid,
+                                        @RequestParam Integer mid) {
+
+        try {
+            if("single".equals(que)) {
+                examService.updateSingle(answer, id, mid, pid);
+            } else if ("gap".equals(que)) {
+                examService.updateGap(answer, id, mid, pid);
+            } else if ("essay".equals(que)) {
+                examService.updateEssay(answer, id, mid, pid);
+            } else {
+                throw new ExceptionMessage("未知题目类型");
+            }
+        } catch (ExceptionMessage exceptionMessage) {
+            ResponseMessage failed = ResponseMessage.failed();
+            failed.setMsg(exceptionMessage.getMsg());
+            return failed;
+        }
+
+        ResponseMessage success = ResponseMessage.success();
+        success.setMsg("保存成功");
+        return success;
     }
 }

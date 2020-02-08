@@ -9,16 +9,16 @@
 <div class="container">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#" id="member">成员</a>
+            <a class="nav-link" href="student/member" id="member">成员</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">资源</a>
+            <a class="nav-link" href="student/paper" id="paper">试题</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">测验</a>
+            <a class="nav-link" href="#">a</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">讨论</a>
+            <a class="nav-link" href="#">a</a>
         </li>
     </ul>
 </div>

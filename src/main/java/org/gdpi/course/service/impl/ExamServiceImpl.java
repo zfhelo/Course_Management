@@ -30,6 +30,15 @@ public class ExamServiceImpl implements ExamService {
     @Autowired
     private CourseService courseService;
 
+    @Override
+    public void updateEssay(String answer, Integer id, Integer mid, Integer pid) throws ExceptionMessage {
+        if(!check(mid)) {
+            throw new ExceptionMessage("更新失败");
+        }
+        // 写入答案
+        examDao.updateEssay(answer,pid, id);
+    }
+
     /**
      * 为学生创建试卷
      * @param sid 学生id
@@ -38,6 +47,81 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public void createPaper(Integer sid, Integer mid) {
         examDao.createPaper(sid, mid);
+    }
+
+    @Override
+    public void updateGap(String answer, Integer id, Integer mid, Integer pid) throws ExceptionMessage{
+        if(!check(mid)) {
+            throw new ExceptionMessage("更新失败");
+        }
+        // 写入答案
+        examDao.updateGap(answer,pid, id);
+    }
+
+    /**
+     * 跟新答案
+     * @param answer
+     * @param id
+     * @param mid
+     * @param pid
+     * @throws ExceptionMessage
+     */
+    @Override
+    public void updateSingle(String answer, Integer id, Integer mid, Integer pid) throws ExceptionMessage {
+        if(!check(mid)) {
+            throw new ExceptionMessage("更新失败");
+        }
+        // 写入答案
+        examDao.updateSingle(answer,pid, id);
+    }
+
+    /**
+     * 判断试卷是否可以写入答案
+     * @param mid
+     * @return
+     */
+    private boolean check(Integer mid) {
+        if (examDao.findPaperModelById(1, 0, mid) == null) {
+            // 每有查到
+            return false;
+        }
+        return true;
+    }
+
+
+    @Override
+    public ExamPaper findPaper(Integer mid, Integer sid) throws ExceptionMessage {
+        ExamPaper paper = examDao.findPaperByMidSid(mid, sid);
+        if (paper == null) {
+            throw new ExceptionMessage("试卷已被删除");
+        }
+
+        List<SingleQuestion> singleQuestions = paper.getSingleQuestions();
+        Random r = new Random();
+        for (SingleQuestion s:singleQuestions) {
+            int index = r.nextInt(3);
+            // 选项打乱（选项1初始为正确答案）
+            switch (index) {
+                case 0:
+                    s.setChoise1(s.getChoise2());
+                    s.setChoise2(s.getAnswer());
+                    break;
+                case 1:
+                    s.setChoise1(s.getChoise3());
+                    s.setChoise3(s.getAnswer());
+                    break;
+                case 2:
+                    s.setChoise1(s.getChoise4());
+                    s.setChoise4(s.getAnswer());
+                    break;
+            }
+        }
+        return paper;
+    }
+
+    @Override
+    public List<ExamPaperModel> findByCidForStu(Integer cid) {
+        return examDao.findByCidForStu(cid);
     }
 
     /**
