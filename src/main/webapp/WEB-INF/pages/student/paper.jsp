@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@include file="../include/stu_bar.jsp"%>
+<title>试题</title>
 <div class="container">
     <div class="list-group" id="list">
 

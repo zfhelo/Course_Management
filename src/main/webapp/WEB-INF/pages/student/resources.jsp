@@ -19,7 +19,7 @@
 <script src="fileinput/purify.min.js" type="text/javascript"></script>
 <script src="fileinput/popper.min.js"></script>
 
-
+<title>资源</title>
 <div class="container">
             <div class="row">
                 <div class="col-lg-8">

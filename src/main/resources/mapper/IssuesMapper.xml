@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gdpi.course.dao.IssuesDao">
+
+    <insert id="insertIssues" parameterType="issues" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO issues(cid, nickname, title, content, path) VALUES(#{cid}, #{nickname}, #{title}, #{content}, #{path})
+    </insert>
+
+    <insert id="insertStuMap">
+        INSERT INTO stu_issues_map(sid, iid) VALUES(#{sid}, #{iid})
+    </insert>
+
+    <insert id="insertTeaMap">
+        INSERT INTO tea_issues_map(tid, iid) VALUES(#{tid}, #{iid})
+    </insert>
+
+    <select id="findAllByCId" parameterType="int" resultType="issues">
+        SELECT * FROM issues WHERE cid = #{cid} ORDER BY `time` DESC
+    </select>
+</mapper>

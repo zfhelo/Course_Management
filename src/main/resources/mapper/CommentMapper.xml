@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.gdpi.course.dao.CommentDao">
+
+    <insert id="insertComment" parameterType="comment" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO comment(iid, nickname, content, path) VALUES(#{iid}, #{nickname}, #{content}, #{path})
+    </insert>
+
+    <insert id="insertStuMap">
+        INSERT INTO stu_comment_map(sid, cid) VALUES(#{sid}, #{cid})
+    </insert>
+
+    <insert id="insertTeaMap">
+        INSERT INTO tea_comment_map(tid, cid) VALUES(#{tid}, #{cid})
+    </insert>
+
+    <select id="findAllByIid" parameterType="int" resultType="comment">
+        SELECT * FROM comment WHERE iid = #{iid} ORDER BY `time` DESC
+    </select>
+</mapper>

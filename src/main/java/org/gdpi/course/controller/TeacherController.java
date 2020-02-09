@@ -265,4 +265,11 @@ public class TeacherController {
        return "teacher/resources";
     }
 
+    @GetMapping("/discuss")
+    public String enterDiscuss(@SessionAttribute("CURRENT_COURSE")Integer id,
+                               ModelMap modelMap) {
+        modelMap.addAttribute("BAR_INDEX", "discuss");
+        return "teacher/discuss";
+    }
+
 }

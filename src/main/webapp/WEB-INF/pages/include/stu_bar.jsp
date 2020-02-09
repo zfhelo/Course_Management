@@ -18,7 +18,7 @@
             <a class="nav-link" href="student/paper" id="paper">试题</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">a</a>
+            <a class="nav-link" href="student/discuss" id="discuss">讨论</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">a</a>

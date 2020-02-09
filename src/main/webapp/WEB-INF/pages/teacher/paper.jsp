@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../include/tea_bar.jsp"%>
+<title>试题管理</title>
         <div class="container">
             <ul class="list-group list-group-flush">
                     <li class="list-group-item">

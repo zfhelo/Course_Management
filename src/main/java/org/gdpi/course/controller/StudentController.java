@@ -181,4 +181,12 @@ public class StudentController {
         modelMap.addAttribute("BAR_INDEX", "resources");
         return "student/resources";
     }
+
+    @GetMapping("/discuss")
+    public String enterDiscuss(@SessionAttribute("CURRENT_COURSE")Integer id,
+                               ModelMap modelMap) {
+        modelMap.addAttribute("BAR_INDEX", "discuss");
+        return "student/discuss";
+    }
+
 }

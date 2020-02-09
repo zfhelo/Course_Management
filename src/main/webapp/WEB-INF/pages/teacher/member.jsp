@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../include/tea_bar.jsp"%>
-
+<title>学员</title>
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
