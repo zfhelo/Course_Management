@@ -58,7 +58,7 @@ public class DiscussServiceImpl implements DiscussService {
         if (issues == null) {
             throw new ExceptionMessage("创建失败");
         }
-        issuesDao.insertStuMap(teacher.getId(), issues.getId());
+        issuesDao.insertTeaMap(teacher.getId(), issues.getId());
     }
 
     /**
