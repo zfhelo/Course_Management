@@ -119,6 +119,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Student> removeMember(Integer cid, Integer sid) {
         courseDao.removeMember(cid, sid);
+        // 删除学生试卷
+        List<ExamPaperModel> byCId = examDao.findByCId(cid);
+        for (ExamPaperModel e:byCId) {
+            examDao.deletePaper(sid, e.getId());
+        }
         return courseDao.findStudentById(sid);
     }
 

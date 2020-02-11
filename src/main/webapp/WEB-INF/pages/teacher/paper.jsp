@@ -36,7 +36,7 @@
                                 <label class="custom-control-label" for="__${paper.id}">允许提交</label>
                             </div>
 
-                            <button type="button" class="btn btn-link float-right" onclick="">查看详情</button>
+                            <a  class="btn btn-link float-right" href="detailPaper?id=${paper.id}">查看详情</a>
                         </li>
                     </c:forEach>
             </ul>

@@ -20,9 +20,6 @@
         <li class="nav-item">
             <a class="nav-link" href="student/discuss" id="discuss">讨论</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">a</a>
-        </li>
     </ul>
 </div>
 <script>

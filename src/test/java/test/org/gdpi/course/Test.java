@@ -1,7 +1,9 @@
 package test.org.gdpi.course;
 
 import org.gdpi.course.pojo.SingleQuestion;
+import org.gdpi.course.utils.DeleteFiles;
 
+import java.io.File;
 import java.util.*;
 
 public class Test {
@@ -42,5 +44,11 @@ public class Test {
             }
         }
             System.out.println(papers.size());
+    }
+    @org.junit.Test
+    public void h() {
+        File f1 = new File("/Users/zfhelo/Downloads/apache-maven-3.6.3");
+        File f2 = new File("/Users/zfhelo/Downloads/apache-maven-3.6.3 2");
+        DeleteFiles.deleteFiles(f1, f2);
     }
 }

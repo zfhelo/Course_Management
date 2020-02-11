@@ -79,9 +79,11 @@ public class DiscussController {
     @ResponseBody
     @PostMapping(path = "/{identity}/postComment", params = {"content"})
     public ResponseMessage postComment(@PathVariable("identity") String identity,
+                                      @SessionAttribute("CURRENT_COURSE") Integer id,
                                       MultipartFile file,
                                       HttpSession session,
                                       Comment comment) throws Exception{
+        comment.setCid(id);
 
         // 教师
         if ("teacher".equals(identity)) {

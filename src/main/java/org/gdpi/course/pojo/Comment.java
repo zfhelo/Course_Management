@@ -5,12 +5,21 @@ import java.util.Date;
 public class Comment {
     private Integer id;
     private Integer iid;
+    private Integer cid;
     private String content;
     private String nickname;
     private String path;
     private Date time;
     private String localeTime;
     private User user;
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
+    }
 
     public String getLocaleTime() {
         return localeTime;

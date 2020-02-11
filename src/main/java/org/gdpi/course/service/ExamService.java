@@ -64,4 +64,33 @@ public interface ExamService {
      * @param sid
      */
     void commitPaper(Integer id, Integer sid) throws ExceptionMessage;
+
+    /**
+     * 计算成绩
+     * @param id 试卷id
+     * @param sid 学生id
+     */
+    void computerGrade(Integer id, Integer sid);
+
+    /**
+     * 通过mid查找试卷
+     * @param mid
+     * @return
+     */
+    List<ExamPaper> findAllPaper(Integer mid);
+
+    /**
+     * 查找试卷
+     * @param id 试卷id
+     * @param sid 学生id
+     * @return
+     * @throws ExceptionMessage
+     */
+    ExamPaper findPaperTea(Integer id, Integer sid) throws ExceptionMessage;
+
+    /**
+     * 教师提交成绩
+     * @param grade
+     */
+    void commitGrade(ExamPaper grade);
 }

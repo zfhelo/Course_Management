@@ -1,5 +1,6 @@
 package org.gdpi.course.controller;
 
+import org.gdpi.course.pojo.ExamPaper;
 import org.gdpi.course.pojo.ExamPaperModel;
 import org.gdpi.course.pojo.Student;
 import org.gdpi.course.pojo.Teacher;
@@ -8,9 +9,11 @@ import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 试题相关
@@ -106,5 +109,20 @@ public class ExamController {
         success.setMsg("提交成功");
 
         return success;
+    }
+
+    @GetMapping("/detailPaper")
+    public String detailPaper(@RequestParam("id") Integer id,
+                              ModelMap map) {
+        List<ExamPaper> allPaper = examService.findAllPaper(id);
+        map.addAttribute("paper", allPaper);
+        return "teacher/paper_list";
+    }
+
+    @PostMapping(path = "/teacher/commitGrade", params = {"grade", "id", "sid"})
+    @ResponseBody
+    public ResponseMessage commitGrade(ExamPaper examPaper) {
+        examService.commitGrade(examPaper);
+        return ResponseMessage.success();
     }
 }

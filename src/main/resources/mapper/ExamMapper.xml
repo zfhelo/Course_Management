@@ -43,6 +43,7 @@
         <result property="grade" column="grade"/>
         <result property="status" column="status"/>
         <result property="time" column="time"/>
+        <association property="user" column="sid" select="org.gdpi.course.dao.StudentDao.findById" javaType="student"/>
         <collection property="singleQuestions" column="id" ofType="singleQuestion" select="org.gdpi.course.dao.ExamDao.findAllSingleByEid"/>
         <collection property="gapFillings" column="id" ofType="gapFilling" select="org.gdpi.course.dao.ExamDao.findAllGapByEid"/>
         <collection property="essayQuestions" column="id" select="org.gdpi.course.dao.ExamDao.findAllEssayByEid" ofType="singleQuestion"/>
@@ -105,6 +106,10 @@
         SELECT * FROM exam_paper WHERE mid = #{mid} AND sid = #{sid}
     </select>
 
+    <select id="findPaperByIdSid" resultMap="paper">
+        SELECT * FROM exam_paper WHERE id = #{id} AND sid = #{sid}
+    </select>
+
     <select id="findAllSingleByEid" parameterType="int" resultMap="single1">
         SELECT s.*,s2.answer a FROM single_question s,exam_que_single s2 WHERE s2.eid = #{eid} AND s2.single_id = s.id;
     </select>
@@ -135,5 +140,17 @@
     <update id="updateStatus">
         UPDATE exam_paper SET status = 1 WHERE id = #{id} AND sid = #{sid}
     </update>
+
+    <update id="updateGrade" parameterType="examPaper">
+        UPDATE exam_paper SET grade = #{grade} WHERE id = #{id} AND sid = #{sid}
+    </update>
+
+    <select id="findPaperByMid" parameterType="int" resultMap="paper">
+        SELECT * FROM exam_paper WHERE mid = #{mid}
+    </select>
+
+    <delete id="deletePaper">
+        DELETE FROM exam_paper WHERE sid = #{sid} AND mid = #{mid}
+    </delete>
 
 </mapper>

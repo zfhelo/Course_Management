@@ -6,6 +6,7 @@ import org.gdpi.course.pojo.Student;
 import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.service.TeacherService;
 import org.gdpi.course.utils.CheckCode;
+import org.gdpi.course.utils.DeleteFiles;
 import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class TeacherController {
                                  @RequestParam String code, @SessionAttribute("CHECKCODE_SERVER") String reallyCode,
                                  HttpSession session) {
         // 验证码错误
-        if (code != null && !code.equalsIgnoreCase(reallyCode)) {
+        if (code != null && code.equalsIgnoreCase(reallyCode)) {
             ResponseMessage failed = ResponseMessage.failed();
             failed.setCode(ResponseMessage.codeError);
             failed.setMsg("验证码错误");
@@ -148,10 +150,16 @@ public class TeacherController {
     @PostMapping("/removeCourse")
     @ResponseBody
     public ResponseMessage removeCourse(@RequestParam Integer id,
-                                        @SessionAttribute("TEACHER") Teacher teacher) {
+                                        @SessionAttribute("TEACHER") Teacher teacher,
+                                        HttpSession session) {
         Integer tid = teacher.getId();
         List<Course> courses = teacherService.removeCourse(id, tid);
         teacher.setCourses(courses);
+        String realPath = session.getServletContext().getRealPath("/");
+        File file = new File(realPath + "/" + "comment/");
+        File file2 = new File(realPath + "/" + "issues/");
+        // 删除课程相关文件
+        DeleteFiles.deleteFiles(file, file2);
         return ResponseMessage.success();
     }
 

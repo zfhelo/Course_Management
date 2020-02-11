@@ -29,7 +29,7 @@ public interface ExamDao {
     void createPaper(@Param("sid") Integer sid, @Param("mid") Integer mid);
 
     /**
-     * 查询此模板试卷生成的试卷
+     * 查询此模板试卷生成的试卷id
      * @param mid
      * @return 试卷id
      */
@@ -63,7 +63,7 @@ public interface ExamDao {
     List<ExamPaperModel> findByCId(Integer cid);
 
     /**
-     * 查找该模板试卷的所有试卷
+     * 查找该模板试卷的所有试卷数
      * @return
      */
     Integer findByMIdCount(Integer mid);
@@ -97,7 +97,7 @@ public interface ExamDao {
     void deleteModelPaper(@Param("id") Integer id , @Param("cid") Integer cid) throws ExceptionMessage;
 
     /**
-     * 查找试卷
+     * 查找可见的试卷
      * @param cid
      * @return
      */
@@ -110,6 +110,14 @@ public interface ExamDao {
      * @return
      */
     ExamPaper findPaperByMidSid(@Param("mid") Integer mid, @Param("sid") Integer sid);
+
+    /**
+     * 查找试卷
+     * @param id 试卷id
+     * @param sid 学生id
+     * @return
+     */
+    ExamPaper findPaperByIdSid(@Param("id") Integer id, @Param("sid") Integer sid);
 
     /**
      * 通过试卷id查找该试卷所有选择题
@@ -161,4 +169,24 @@ public interface ExamDao {
      * @param sid 学生id
      */
     int updateStatus(@Param("id") Integer id, @Param("sid") Integer sid);
+
+    /**
+     * 更改成绩
+     * @param paper
+     */
+    void updateGrade(ExamPaper paper);
+
+    /**
+     * 查找试卷
+     * @param mid
+     * @return
+     */
+    List<ExamPaper> findPaperByMid(Integer mid);
+
+    /**
+     * 通过sid mid删除试卷
+     * @param sid
+     * @param mid
+     */
+    void deletePaper(@Param("sid") Integer sid, @Param("mid") Integer mid);
 }

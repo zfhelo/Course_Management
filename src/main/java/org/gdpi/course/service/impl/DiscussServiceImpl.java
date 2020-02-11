@@ -204,9 +204,9 @@ public class DiscussServiceImpl implements DiscussService {
      * @param comment
      */
     private void saveFile(MultipartFile file, HttpSession session, Comment comment) {
-        //images/comment/帖子id/
+        //images/comment/课程id/帖子id
         String path = session.getServletContext().getRealPath("/");
-        String filePath = "images/comment/"+comment.getIid();
+        String filePath = "images/comment/"+comment.getCid()+"/"+comment.getIid();
         File parent = new File(path+filePath);
         // 判断是否存在
         if (!parent.exists()) {

@@ -42,4 +42,14 @@ public class PaperController {
         modelMap.addAttribute("paper",paper);
         return "student/exam";
     }
+
+    @GetMapping("/teacher/paperDetails")
+    public String exterExam(@RequestParam Integer id,
+                            @RequestParam Integer sid,
+                            ModelMap modelMap) throws ExceptionMessage {
+
+        ExamPaper paper = examService.findPaperTea(id, sid);
+        modelMap.addAttribute("paper",paper);
+        return "teacher/paper_details";
+    }
 }

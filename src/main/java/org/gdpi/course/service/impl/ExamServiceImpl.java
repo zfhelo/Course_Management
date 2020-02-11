@@ -41,8 +41,8 @@ public class ExamServiceImpl implements ExamService {
 
     /**
      * 提交试卷
-     * @param id
-     * @param sid
+     * @param id 试卷id
+     * @param sid 学生id
      */
     @Override
     public void commitPaper(Integer id, Integer sid) throws ExceptionMessage {
@@ -50,6 +50,45 @@ public class ExamServiceImpl implements ExamService {
         if (i == 0) {
             throw new ExceptionMessage("试卷不存在");
         }
+        computerGrade(id, sid);
+    }
+
+    @Override
+    public List<ExamPaper> findAllPaper(Integer mid) {
+        return examDao.findPaperByMid(mid);
+    }
+
+    /**
+     * 计算成绩
+     * @param id 试卷id
+     * @param sid 学生id
+     */
+    @Override
+    public void computerGrade(Integer id, Integer sid) {
+        ExamPaper paper = examDao.findPaperByIdSid(id, sid);
+        // 成绩
+        Float grade = 0f;
+        // 拿到选择题
+        List<SingleQuestion> singleQuestions = paper.getSingleQuestions();
+        // 拿到填空题
+        List<GapFilling> gapFillings = paper.getGapFillings();
+        for (SingleQuestion s:singleQuestions) {
+            String answer = s.getAnswer();
+            String userAnswer = s.getUserAnswer();
+            if (answer.equals(userAnswer)) {
+                grade += s.getGrade();
+            }
+        }
+        for (GapFilling g:gapFillings) {
+            String answer = g.getAnswer();
+            String userAnswer = g.getUserAnswer();
+            if (answer.equals(userAnswer)) {
+                grade += g.getGrade();
+            }
+        }
+        paper.setGrade(grade);
+        examDao.updateGrade(paper);
+
     }
 
     /**
@@ -82,7 +121,7 @@ public class ExamServiceImpl implements ExamService {
     @Override
     public void updateSingle(String answer, Integer id, Integer mid, Integer pid) throws ExceptionMessage {
         if(!check(mid)) {
-            throw new ExceptionMessage("更新失败");
+            throw new ExceptionMessage("禁止提交");
         }
         // 写入答案
         examDao.updateSingle(answer,pid, id);
@@ -95,7 +134,7 @@ public class ExamServiceImpl implements ExamService {
      */
     private boolean check(Integer mid) {
         if (examDao.findPaperModelById(1, 0, mid) == null) {
-            // 每有查到
+            // 没有查到
             return false;
         }
         return true;
@@ -106,7 +145,7 @@ public class ExamServiceImpl implements ExamService {
     public ExamPaper findPaper(Integer mid, Integer sid) throws ExceptionMessage {
         ExamPaper paper = examDao.findPaperByMidSid(mid, sid);
         if (paper == null) {
-            throw new ExceptionMessage("试卷已被删除");
+            throw new ExceptionMessage("你没有该试卷");
         }
 
         List<SingleQuestion> singleQuestions = paper.getSingleQuestions();
@@ -130,6 +169,20 @@ public class ExamServiceImpl implements ExamService {
             }
         }
         return paper;
+    }
+
+    @Override
+    public ExamPaper findPaperTea(Integer id, Integer sid) throws ExceptionMessage {
+        ExamPaper paper = examDao.findPaperByIdSid(id, sid);
+        if (paper == null) {
+            throw new ExceptionMessage("试卷已被删除");
+        }
+        return paper;
+    }
+
+    @Override
+    public void commitGrade(ExamPaper examPaper) {
+        examDao.updateGrade(examPaper);
     }
 
     @Override
