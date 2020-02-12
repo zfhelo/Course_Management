@@ -1,7 +1,5 @@
 package org.gdpi.course.utils;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
-
 import java.io.File;
 
 public class DeleteFiles {
@@ -10,7 +8,6 @@ public class DeleteFiles {
      * @param files
      */
     public static void deleteFiles(File...files) {
-
         for (File f:files) {
             File[] ff = f.listFiles();
             // 是文件 或 空目录 直接删除

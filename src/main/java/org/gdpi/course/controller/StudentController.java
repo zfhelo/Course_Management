@@ -41,7 +41,7 @@ public class StudentController {
                                  @RequestParam String code, @SessionAttribute(value = "CHECKCODE_SERVER", required = false) String reallyCode,
                                  HttpSession session) {
         // 验证码错误
-        if (code != null && code.equalsIgnoreCase(reallyCode)) {
+        if (code != null && !code.equalsIgnoreCase(reallyCode)) {
             ResponseMessage failed = ResponseMessage.failed();
             failed.setCode(ResponseMessage.codeError);
             failed.setMsg("验证码错误");

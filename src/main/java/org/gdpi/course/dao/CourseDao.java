@@ -2,6 +2,7 @@ package org.gdpi.course.dao;
 
 import org.apache.ibatis.annotations.Param;
 import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.Grade;
 import org.gdpi.course.pojo.Student;
 
 import java.util.List;
@@ -70,4 +71,30 @@ public interface CourseDao {
      */
     void removeMember(@Param("cid") Integer cid, @Param("sid") Integer sid);
 
+    /**
+     * 创建成绩表
+     * @param sid
+     * @param cid
+     */
+    void createGradeTable(@Param("sid") Integer sid, @Param("cid") Integer cid);
+
+    /**
+     * 删除成绩表
+     * @param cid
+     * @param sid
+     */
+    void deleteGradeTable(@Param("sid") Integer sid, @Param("cid") Integer cid);
+
+    /**
+     * 查找成绩表
+     * @param cid
+     * @return
+     */
+    List<Grade> findAllGradeByCid(Integer cid);
+
+    /**
+     * 更新成绩
+     * @param grade
+     */
+    void updateGrade(Grade grade);
 }

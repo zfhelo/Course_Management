@@ -1,6 +1,7 @@
 package org.gdpi.course.service;
 
 import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.Grade;
 import org.gdpi.course.pojo.Student;
 import org.gdpi.course.utils.ExceptionMessage;
 
@@ -62,4 +63,9 @@ public interface CourseService {
      */
     List<Course> findBySid(Integer sid);
 
+    /**
+     * 更改成绩
+     * @param grade
+     */
+    void updateGrade(Grade grade);
 }

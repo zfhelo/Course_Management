@@ -7,7 +7,6 @@ import org.gdpi.course.pojo.Student;
 import org.gdpi.course.service.StudentService;
 import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.FromCheck;
-import org.gdpi.course.utils.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,6 +95,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Course> removeCourse(Integer cid, Integer sid) {
         studentDao.removeCourse(cid, sid);
+        courseDao.deleteGradeTable(sid, cid);
         return courseDao.findBySId(sid);
     }
 }

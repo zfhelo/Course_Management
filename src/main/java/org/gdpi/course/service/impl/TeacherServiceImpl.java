@@ -3,10 +3,7 @@ package org.gdpi.course.service.impl;
 import org.gdpi.course.dao.CourseDao;
 import org.gdpi.course.dao.ExamDao;
 import org.gdpi.course.dao.TeacherDao;
-import org.gdpi.course.pojo.Course;
-import org.gdpi.course.pojo.ExamPaperModel;
-import org.gdpi.course.pojo.Student;
-import org.gdpi.course.pojo.Teacher;
+import org.gdpi.course.pojo.*;
 import org.gdpi.course.service.TeacherService;
 import org.gdpi.course.utils.ExceptionMessage;
 import org.gdpi.course.utils.FromCheck;
@@ -123,6 +120,7 @@ public class TeacherServiceImpl implements TeacherService {
         List<ExamPaperModel> byCId = examDao.findByCId(cid);
         for (ExamPaperModel e:byCId) {
             examDao.deletePaper(sid, e.getId());
+            courseDao.deleteGradeTable(sid, cid);
         }
         return courseDao.findStudentById(sid);
     }
@@ -139,6 +137,11 @@ public class TeacherServiceImpl implements TeacherService {
         return courseDao.findByTId(tid);
     }
 
+
+    @Override
+    public List<Grade> findAllGradeTable(Integer cid) {
+        return courseDao.findAllGradeByCid(cid);
+    }
 
     /**
      * 删除模板试卷

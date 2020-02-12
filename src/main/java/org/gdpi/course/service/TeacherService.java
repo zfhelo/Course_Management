@@ -1,9 +1,6 @@
 package org.gdpi.course.service;
 
-import org.gdpi.course.pojo.Course;
-import org.gdpi.course.pojo.ExamPaperModel;
-import org.gdpi.course.pojo.Student;
-import org.gdpi.course.pojo.Teacher;
+import org.gdpi.course.pojo.*;
 import org.gdpi.course.utils.ExceptionMessage;
 
 import java.util.List;
@@ -92,5 +89,10 @@ public interface TeacherService {
      */
     void deletePaper(Integer id, Integer cid) throws ExceptionMessage;
 
-
+    /**
+     * 查询所有成绩表
+     * @param cid
+     * @return
+     */
+    List<Grade> findAllGradeTable(Integer cid);
 }

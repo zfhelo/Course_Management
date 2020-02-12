@@ -2,6 +2,7 @@ package org.gdpi.course.service.impl;
 
 import org.gdpi.course.dao.CourseDao;
 import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.Grade;
 import org.gdpi.course.pojo.Student;
 import org.gdpi.course.service.CourseService;
 import org.gdpi.course.utils.ExceptionMessage;
@@ -38,6 +39,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> findByTid(Integer tid) {
         return courseDao.findByTId(tid);
+    }
+
+    @Override
+    public void updateGrade(Grade grade) {
+        courseDao.updateGrade(grade);
     }
 
     /**
@@ -91,6 +97,7 @@ public class CourseServiceImpl implements CourseService {
         }
 
         courseDao.joinCourse(sid, cid);
+        courseDao.createGradeTable(sid ,cid);
         return c;
     }
 

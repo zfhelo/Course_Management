@@ -12,6 +12,14 @@
         <association property="teacher" column="tid" javaType="teacher"
                      select="org.gdpi.course.dao.TeacherDao.findById"/>
     </resultMap>
+    <resultMap id="gradeTable" type="grade">
+        <id property="id" column="id"/>
+        <result property="sid" column="sid"/>
+        <result property="cid" column="cid"/>
+        <result property="regularGrade" column="regular_grade"/>
+        <result property="finalGrade" column="final_grade"/>
+        <association property="student" column="sid" select="org.gdpi.course.dao.StudentDao.findById"/>
+    </resultMap>
 
 <!--    通过学生号查找他的课程-->
     <select id="findBySId" resultMap="courseWithTeacher" parameterType="int">
@@ -57,4 +65,19 @@
     <delete id="removeMember">
         DELETE FROM choise_course WHERE cid = #{cid} AND sid = #{sid};
     </delete>
+<!--创建成绩表-->
+    <insert id="createGradeTable">
+        INSERT INTO grade(sid, cid) VALUES(#{sid}, #{cid})
+    </insert>
+    <delete id="deleteGradeTable">
+        DELETE FROM grade WHERE sid = #{sid} AND cid = #{cid}
+    </delete>
+
+    <select id="findAllGradeByCid" resultMap="gradeTable">
+        SELECT * FROM grade WHERE cid = #{cid}
+    </select>
+
+    <select id="updateGrade" parameterType="grade">
+        UPDATE grade SET final_grade = #{finalGrade}, regular_grade = #{regularGrade} WHERE sid = #{sid} AND id = #{id}
+    </select>
 </mapper>

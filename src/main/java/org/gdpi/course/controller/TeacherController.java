@@ -1,9 +1,6 @@
 package org.gdpi.course.controller;
 
-import org.gdpi.course.pojo.Course;
-import org.gdpi.course.pojo.ExamPaperModel;
-import org.gdpi.course.pojo.Student;
-import org.gdpi.course.pojo.Teacher;
+import org.gdpi.course.pojo.*;
 import org.gdpi.course.service.TeacherService;
 import org.gdpi.course.utils.CheckCode;
 import org.gdpi.course.utils.DeleteFiles;
@@ -42,7 +39,7 @@ public class TeacherController {
                                  @RequestParam String code, @SessionAttribute("CHECKCODE_SERVER") String reallyCode,
                                  HttpSession session) {
         // 验证码错误
-        if (code != null && code.equalsIgnoreCase(reallyCode)) {
+        if (code != null && !code.equalsIgnoreCase(reallyCode)) {
             ResponseMessage failed = ResponseMessage.failed();
             failed.setCode(ResponseMessage.codeError);
             failed.setMsg("验证码错误");
@@ -278,6 +275,16 @@ public class TeacherController {
                                ModelMap modelMap) {
         modelMap.addAttribute("BAR_INDEX", "discuss");
         return "teacher/discuss";
+    }
+
+    @GetMapping("/grade")
+    public String enterGrade(@SessionAttribute("CURRENT_COURSE")Integer id,
+                               ModelMap modelMap) {
+        modelMap.addAttribute("BAR_INDEX", "grade");
+        List<Grade> allGradeTable = teacherService.findAllGradeTable(id);
+        modelMap.addAttribute("grade", allGradeTable);
+        teacherService.findAllGradeTable(id);
+        return "teacher/grade";
     }
 
 }

@@ -1,6 +1,7 @@
 package org.gdpi.course.controller;
 
 import org.gdpi.course.pojo.Course;
+import org.gdpi.course.pojo.Grade;
 import org.gdpi.course.pojo.Student;
 import org.gdpi.course.pojo.Teacher;
 import org.gdpi.course.service.CourseService;
@@ -108,6 +109,21 @@ public class CourseController {
             failed.setMsg(exceptionMessage.getMsg());
             return failed;
         }
+        return ResponseMessage.success();
+    }
+
+    @PostMapping("/teacher/editGrade")
+    @ResponseBody
+    public ResponseMessage editGrade(Grade grade,
+                                     @SessionAttribute("TEACHER") Teacher teacher) {
+        if (grade.getRegularGrade() == null) {
+            grade.setRegularGrade(0F);
+        }
+        if (grade.getFinalGrade() == null) {
+            grade.setFinalGrade(0F);
+        }
+
+        courseService.updateGrade(grade);
         return ResponseMessage.success();
     }
 }

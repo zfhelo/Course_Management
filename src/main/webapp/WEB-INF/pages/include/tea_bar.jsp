@@ -23,6 +23,9 @@
         <li class="nav-item">
             <a class="nav-link" href="teacher/discuss" id="discuss">讨论</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="teacher/grade" id="grade">成绩单</a>
+        </li>
     </ul>
 </div>
 <script>
