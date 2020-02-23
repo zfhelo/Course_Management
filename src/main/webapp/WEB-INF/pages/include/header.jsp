@@ -10,4 +10,4 @@
         <script src="js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     </head>
-    <body style="background-color: #f4f4f4">
+    <body style="background-color: #f4f4f4; background: url('images/web/b3.png')">

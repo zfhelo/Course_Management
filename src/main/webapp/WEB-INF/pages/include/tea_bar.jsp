@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@include file="navs.jsp"%>
 <!--图片-->
-<div class="container-fluid">
-    <img src="images/web/background.jpg" style="width: 100%; height: 120px">
+<div class="container-fluid" style="width: 100%; height: 120px; background: url('images/web/b2.png')">
 </div>
 
 <!--导航栏-->

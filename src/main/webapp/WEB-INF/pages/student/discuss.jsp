@@ -34,101 +34,10 @@
         </div>
         <!--评论-->
         <div class="container" style="margin-top: 50px">
-            <!--查找-->
-            <div style="margin-bottom: 20px">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="标题" aria-label="Search">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">搜索</button>
-                </form>
-            </div>
+
 
             <div class="accordion" id="issues">
                 <!--评论部分-->
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                快速排序详解
-                            </button>
-                        </h2>
-                        <small class="float-right">郑海锋(2018/18/18)</small>
-                    </div>
-
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#issues">
-                        <div class="card-body">
-                            content
-                            <br/>
-                            <img src="">
-                        </div>
-                        <!--写评论-->
-                        <div class="card-body">
-                            <form>
-                                <div class="mb-3">
-                                    <textarea class="form-control" id="validationTextarea" placeholder="发表你的想法" required></textarea>
-                                </div>
-
-                                <div class="btn-group  float-right" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn btn-primary">添加附件</button>
-                                    <button type="button" class="btn btn btn-primary">发布</button>
-                                </div>
-
-                                <!--添加文件最多支持3个-->
-                                <div class="form-group">
-                                    <span class="float-left" style="margin-right: 20px; color: red">删除</span>
-                                    <input type="file" class="form-control-file w-25" id="exampleFormControlFile1">
-                                    <span class="float-left" style="margin-right: 20px; color: red">删除</span>
-                                    <input type="file" class="form-control-file w-25" id="exampleFormControlFile2">
-                                </div>
-                            </form>
-                        </div>
-                        <hr style="margin-top: 30px; margin-bottom: 0"/>
-                        <!--评论-->
-                        <div>
-                            <div class="card-body">
-                                <img src="头像" style="width: 40px">
-                                <span class="font-weight-bolder">郑海锋</span>
-                                <p style="margin-top: 30px">666</p>
-                                <div class="row">
-                                    <img src="../../../images/web/cover.png">
-                                </div>
-                            </div>
-                            <hr style="margin: 0"/>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Collapsible Group Item #2
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Collapsible Group Item #3
-                            </button>
-                        </h2>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
             </div>
             <!--分页-->
             <div class="float-right" style="margin-top: 10px">
@@ -196,7 +105,7 @@
                         $title.val('');
                         $content.val('');
                         $imgFile.val('');
-                        window.location.reload();
+                        history.go(0);
                     }
                     $("#msg1").text(data.msg);
                 }
